@@ -1,6 +1,5 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {action} from '@storybook/addon-actions';
 import TaskMaker from "./task-maker";
 
 storiesOf('Components|TaskMaker', module)
@@ -8,7 +7,6 @@ storiesOf('Components|TaskMaker', module)
         return (
             <div>
                 <TaskMaker/>
-                <button onClick={action('clicked')}>working on the story</button>
             </div>
         )
     });

@@ -1,11 +1,16 @@
 import React from 'react';
+import {List} from "@material-ui/core";
+import TaskElement from "../task-element/task-element";
 
 class TaskList extends React.Component {
     render() {
+        const {todos} = this.props;
         return (
-            <div>
-                Task List Component
-            </div>
+            <List>
+                {todos.map((label, index) => (
+                    <TaskElement index={index} label={label}/>
+                ))}
+            </List>
         );
     }
 }
