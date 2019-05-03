@@ -5,17 +5,21 @@ import {Input, withStyles} from "@material-ui/core";
 import styles from './task-maker.module.css';
 
 class TaskMaker extends React.Component {
+    changeHandler = (event) => {
+        const {callback} = this.props;
+        if (event.key === 'Enter') {
+            callback.apply();
+        }
+    };
+
     render() {
         return (
             <div className={styles.root}>
                 <Input
                     defaultValue=""
                     placeholder="Blank Todo"
-                    inputProps={
-                        {
-                            'arial-label': 'Blank To Do Input'
-                        }
-                    }
+                    inputProps={{'arial-label': 'Blank To Do Input'}}
+                    onKeyDown={this.changeHandler}
                 />
             </div>
         );

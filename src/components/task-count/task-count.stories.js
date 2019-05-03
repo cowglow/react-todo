@@ -19,9 +19,5 @@ storiesOf('Components|TaskCount', module)
 
         const value = number(label, defaultValue, options, groupId);
 
-        return (
-            <div>
-                <TaskCount currentValue={value}/>
-            </div>
-        )
+        return (<TaskCount currentValue={value}/>)
     });

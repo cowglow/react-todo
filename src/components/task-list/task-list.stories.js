@@ -6,9 +6,5 @@ import TaskList from "./task-list";
 storiesOf('Components|TaskList', module)
     .addDecorator(withKnobs)
     .add('default', () => {
-        return (
-            <div>
-                <TaskList todos={['one', 'two', 'three']}/>
-            </div>
-        )
+        return (<TaskList todos={['one', 'two', 'three']}/>)
     });
