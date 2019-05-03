@@ -16,6 +16,9 @@ const theme = createMuiTheme({
             light: green[300],
             main: green[500],
             dark: green[500]
+        },
+        tertiary: {
+            light: purple[800]
         }
     },
     typography: {
