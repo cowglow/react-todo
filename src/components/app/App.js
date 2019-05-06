@@ -42,18 +42,27 @@ class App extends React.Component {
         taskCollection: [{
             label: 'default task',
             isChecked: false
-        }]
+        }],
+        tasksCompleted: 0
     };
 
     render() {
         const {classes} = this.props;
-        const {taskCollection} = this.state;
+        const {taskCollection, tasksCompleted} = this.state;
+
         // const taskCount = this.state.taskCollection.length;
 
         const createNewTask = (taskObject) => {
-            this.setState(state => {
-                const newTaskColleciton = state.taskCollection.push(taskObject);
-                return {newTaskColleciton}
+            this.setState(state => ({
+                taskCollection: [...state.taskCollection, taskObject]
+            }));
+        };
+
+        const updateTasks = (props) => {
+            console.log(props);
+            this.setState({
+                taskCollection: this.state.taskCollection,
+                tasksCompleted: this.state.taskCollection.filter((task) => task.isChecked).length
             });
         };
 
@@ -74,12 +83,12 @@ class App extends React.Component {
                 {/* MAIN */}
                 <main className={classes.main}>
                     <TaskMaker label="TaskMaker Label" callback={createNewTask}/>
-                    <TaskList todos={taskCollection}/>
+                    <TaskList todos={taskCollection} callback={updateTasks}/>
                 </main>
 
                 {/* FOOTER */}
                 <footer className={classes.footer}>
-                    <TaskCount collection={taskCollection}/>
+                    <TaskCount count={taskCollection.length} completedCount={tasksCompleted}/>
                     <Typography variant="subtitle2">Made with ReactJS and Material-UI.</Typography>
                 </footer>
             </div>

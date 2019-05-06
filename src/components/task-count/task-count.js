@@ -2,11 +2,20 @@ import React from 'react';
 import {Typography} from "@material-ui/core";
 
 class TaskCount extends React.Component {
+
     render() {
-        const {collection} = this.props;
+        const {count, completedCount} = this.props;
+
         return (
             <Typography variant={"subtitle2"}>
-                {collection.length} items
+                {count > 0 ? (<span>{count} things to do</span>) : (<span>Empty list.</span>)}
+
+
+                {completedCount > 0 &&
+                <span> | {completedCount} completed!</span>
+                }
+
+                <h2>{completedCount}</h2>
             </Typography>
         );
     }

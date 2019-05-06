@@ -6,8 +6,6 @@ import TaskCount from "./task-count";
 storiesOf('Components|TaskCount', module)
     .addDecorator(withKnobs)
     .add('default', () => {
-
-        const label = 'Task Count';
         const defaultValue = 0;
         const options = {
             range: true,
@@ -17,7 +15,7 @@ storiesOf('Components|TaskCount', module)
         };
         const groupId = 'GROUP-ID1';
 
-        const value = number(label, defaultValue, options, groupId);
-
-        return (<TaskCount currentValue={value}/>)
+        const currentValue = number('Number of Tasks', defaultValue, options, groupId);
+        const completedCount = number('Completed Tasks', defaultValue, options, groupId);
+        return (<TaskCount count={currentValue} completedCount={completedCount}/>)
     });
