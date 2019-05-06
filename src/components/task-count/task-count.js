@@ -3,10 +3,10 @@ import {Typography} from "@material-ui/core";
 
 class TaskCount extends React.Component {
     render() {
-        const {currentValue} = this.props;
+        const {collection} = this.props;
         return (
             <Typography variant={"subtitle2"}>
-                {currentValue} items
+                {collection.length} items
             </Typography>
         );
     }

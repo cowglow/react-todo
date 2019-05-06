@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Toolbar, IconButton, Typography, withStyles} from "@material-ui/core";
+import {AppBar, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
+
 import logo from '../../assets/images/logo.svg';
+import TaskMaker from "../task-maker/task-maker";
+import TaskList from "../task-list/task-list";
+import TaskCount from "../task-count/task-count";
 
 const styles = theme => ({
     root: {
@@ -18,7 +22,7 @@ const styles = theme => ({
         marginRight: 20,
     },
     main: {
-        border: 'thin solid red',
+        // border: 'thin solid red',
         flex: '1 0 auto',
     },
     footer: {
@@ -33,8 +37,25 @@ const styles = theme => ({
 });
 
 class App extends React.Component {
+
+    state = {
+        taskCollection: [{
+            label: 'default task',
+            isChecked: false
+        }]
+    };
+
     render() {
         const {classes} = this.props;
+        const {taskCollection} = this.state;
+        // const taskCount = this.state.taskCollection.length;
+
+        const createNewTask = (taskObject) => {
+            this.setState(state => {
+                const newTaskColleciton = state.taskCollection.push(taskObject);
+                return {newTaskColleciton}
+            });
+        };
 
         return (
             <div className={classes.root}>
@@ -52,11 +73,13 @@ class App extends React.Component {
 
                 {/* MAIN */}
                 <main className={classes.main}>
-                    <Typography variant="body1">WIP: Building the Components</Typography>
+                    <TaskMaker label="TaskMaker Label" callback={createNewTask}/>
+                    <TaskList todos={taskCollection}/>
                 </main>
 
                 {/* FOOTER */}
                 <footer className={classes.footer}>
+                    <TaskCount collection={taskCollection}/>
                     <Typography variant="subtitle2">Made with ReactJS and Material-UI.</Typography>
                 </footer>
             </div>

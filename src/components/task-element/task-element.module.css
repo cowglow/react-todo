@@ -1,0 +1,9 @@
+.completedTask {
+    /*background-color: red;*/
+    text-decoration: line-through;
+}
+
+.uncompletedTask {
+    /*background-color: purple;*/
+    text-decoration: none;
+}
