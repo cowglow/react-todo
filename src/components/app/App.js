@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
+import {AppBar, Button, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
 
@@ -62,11 +62,21 @@ class App extends React.Component {
     createNewTask = (taskObject) => {
         let newTaskCollection = this.state.taskCollection;
         newTaskCollection.push(taskObject);
+
         this.setState({
             taskCollection: newTaskCollection
         });
 
-        console.log(this.state)
+    };
+
+    clearCompleted = () => {
+        const sanitizedTaskCollection = this.state.taskCollection.filter((task) => !task.isChecked);
+
+        // console.log(sanitizedTaskCollection);
+
+        this.setState({
+            taskCollection: sanitizedTaskCollection
+        });
     };
 
     render() {
@@ -111,6 +121,7 @@ class App extends React.Component {
                 {/* FOOTER */}
                 <footer className={classes.footer}>
                     <TaskCount count={taskCollection.length} completedCount={tasksCompleted}/>
+                    <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
                     <TaskToggle options={'all|active|completed'} callback={toggleTask}/>
                     <Typography variant="overline" align="center">Made with ReactJS and Material-UI.</Typography>
                 </footer>
