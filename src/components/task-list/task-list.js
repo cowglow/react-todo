@@ -9,23 +9,33 @@ class TaskList extends React.Component {
         todos: []
     };
 
+    componentWillMount() {
+        const {todos} = this.props;
+        this.setState({
+            todos: todos
+        });
+    }
 
     render() {
-        const {todos, callback} = this.props;
+        const {callback} = this.props;
+        const {todos} = this.state;
 
-        const callbackHandler = (event) => {
-            // this.setState(state => ({
-            //     todos: [..., this]
-            // }));
+        const callbackHandler = (task) => {
+            let newTodos = todos;
+            newTodos[parseInt(task.index)] = task;
 
-            console.log('event', event);
+            this.setState({
+                todos: newTodos
+            });
+
             callback(todos);
         };
 
         return (
             <List onChange={callback}>
                 {todos.map((task, index) => (
-                    <TaskElement index={index} label={task.label} checked={task.isChecked} callback={callbackHandler}/>
+                    <TaskElement index={index} label={task.label} isChecked={task.isChecked}
+                                 callback={callbackHandler}/>
                 ))}
             </List>
         );

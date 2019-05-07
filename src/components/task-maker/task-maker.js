@@ -9,7 +9,7 @@ class TaskMaker extends React.Component {
         const {callback} = this.props;
         if (event.key === 'Enter') {
             const bindElement = document.getElementById('task-text');
-            const taskTest = {
+            const newTask = {
                 label: bindElement.value,
                 isChecked: false
             };
@@ -18,13 +18,13 @@ class TaskMaker extends React.Component {
             bindElement.value = '';
 
             // Execute Callback
-            callback(taskTest);
+            callback(newTask);
         }
     };
 
-    currentValue = () => {
-        return document.getElementById('task-text').value();
-    };
+    // currentValue = () => {
+    //     return document.getElementById('task-text').value();
+    // };
 
     // TODO: Make an array of phrases that placeholder would randomly display.
     // ['What would you like to do next?','Type your task first, then manifest it!]

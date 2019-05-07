@@ -14,8 +14,6 @@ class TaskCount extends React.Component {
                 {completedCount > 0 &&
                 <span> | {completedCount} completed!</span>
                 }
-
-                <h2>{completedCount}</h2>
             </Typography>
         );
     }

@@ -10,32 +10,40 @@ class TaskElement extends React.Component {
         isChecked: false
     };
 
-    // componentWillMount() {
-    //     const {checked} = this.props;
-    //     this.setState({isChecked: checked});
-    // }
+    constructor() {
+        super();
+        this.state = {
+            isChecked: false
+        }
+    }
+
+    componentWillMount() {
+        const {isChecked} = this.props;
+        this.setState({
+            isChecked: isChecked
+        });
+    }
 
     render() {
         const {label, index, callback} = this.props;
-        const {isChecked} = this.state;
 
         const clickHandler = () => {
-            this.setState(state => {
-                const checkboxValue = !state.isChecked;
-                return {isChecked: checkboxValue};
+            const checkedState = !this.state.isChecked;
+
+            this.setState({
+                isChecked: checkedState
             });
 
             callback({
                 index: this.props.index,
                 label: this.props.label,
-                isChecked: this.state.isChecked
+                isChecked: checkedState
             });
-            // TODO: Must be a way to broadcast this message up to parent component
         };
 
         return (
             <ListItem key={index} dense button onClick={clickHandler}>
-                <Checkbox checked={isChecked}/>
+                <Checkbox checked={this.state.isChecked} inputProps={{'arial-label': label}}/>
                 <ListItemText primary={label}
                               className={(this.state.isChecked ? styles.completedTask : styles.uncompletedTask)}/>
             </ListItem>

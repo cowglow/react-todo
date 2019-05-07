@@ -38,13 +38,16 @@ const styles = theme => ({
 
 class App extends React.Component {
 
-    state = {
-        taskCollection: [{
-            label: 'default task',
-            isChecked: false
-        }],
-        tasksCompleted: 0
-    };
+    constructor() {
+        super();
+        this.state = {
+            taskCollection: [{
+                label: 'default task',
+                isChecked: false
+            }],
+            tasksCompleted: 0
+        };
+    }
 
     render() {
         const {classes} = this.props;
@@ -53,16 +56,20 @@ class App extends React.Component {
         // const taskCount = this.state.taskCollection.length;
 
         const createNewTask = (taskObject) => {
+            let newTaskCollection = this.state.taskCollection;
+            newTaskCollection.push(taskObject);
             this.setState(state => ({
-                taskCollection: [...state.taskCollection, taskObject]
+                taskCollection: newTaskCollection
             }));
+
+            console.log(this.state)
         };
 
-        const updateTasks = (props) => {
-            console.log(props);
+        const updateTasks = (newProps) => {
+            const completedTasks = newProps.filter((task) => task.isChecked).length;
             this.setState({
-                taskCollection: this.state.taskCollection,
-                tasksCompleted: this.state.taskCollection.filter((task) => task.isChecked).length
+                taskCollection: newProps,
+                tasksCompleted: completedTasks
             });
         };
 
