@@ -8,6 +8,7 @@ import logo from '../../assets/images/logo.svg';
 import TaskMaker from "../task-maker/task-maker";
 import TaskList from "../task-list/task-list";
 import TaskCount from "../task-count/task-count";
+import TaskToggle from "../task-toggle/task-toggle";
 
 const styles = theme => ({
     root: {
@@ -41,36 +42,50 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            taskCollection: [{
-                label: 'default task',
-                isChecked: false
-            }],
+            taskCollection: [],
             tasksCompleted: 0
         };
     }
+
+    componentWillMount() {
+        const taskListResource = [
+            {label: 'One', isChecked: false},
+            {label: 'Two', isChecked: true},
+            {label: 'Three', isChecked: false}
+        ];
+
+        taskListResource.map((task) => {
+            this.createNewTask(task);
+        })
+    }
+
+    createNewTask = (taskObject) => {
+        let newTaskCollection = this.state.taskCollection;
+        newTaskCollection.push(taskObject);
+        this.setState({
+            taskCollection: newTaskCollection
+        });
+
+        console.log(this.state)
+    };
 
     render() {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted} = this.state;
 
-        // const taskCount = this.state.taskCollection.length;
-
-        const createNewTask = (taskObject) => {
-            let newTaskCollection = this.state.taskCollection;
-            newTaskCollection.push(taskObject);
-            this.setState({
-                taskCollection: newTaskCollection
-            });
-
-            console.log(this.state)
-        };
 
         const updateTasks = (newProps) => {
-            const completedTasks = newProps.filter((task) => task.isChecked).length;
-            this.setState({
-                taskCollection: newProps,
-                tasksCompleted: completedTasks
-            });
+            if (newProps) {
+                const completedTasks = newProps.filter((task) => task.isChecked).length;
+                this.setState({
+                    taskCollection: newProps,
+                    tasksCompleted: completedTasks
+                });
+            }
+        };
+
+        const toggleTask = (mode) => {
+            console.log('toggle task mode:', mode);
         };
 
         return (
@@ -89,14 +104,15 @@ class App extends React.Component {
 
                 {/* MAIN */}
                 <main className={classes.main}>
-                    <TaskMaker label="TaskMaker Label" callback={createNewTask}/>
+                    <TaskMaker label="TaskMaker Label" callback={this.createNewTask}/>
                     <TaskList todos={taskCollection} callback={updateTasks}/>
                 </main>
 
                 {/* FOOTER */}
                 <footer className={classes.footer}>
                     <TaskCount count={taskCollection.length} completedCount={tasksCompleted}/>
-                    <Typography variant="subtitle2">Made with ReactJS and Material-UI.</Typography>
+                    <TaskToggle options={'all|active|completed'} callback={toggleTask}/>
+                    <Typography variant="overline" align="center">Made with ReactJS and Material-UI.</Typography>
                 </footer>
             </div>
         );

@@ -8,8 +8,8 @@ storiesOf('Components|TaskList', module)
     .addDecorator(withKnobs)
     .add('default', () => {
         return (<TaskList todos={[
-            {label: 'One', completed: false},
-            {label: 'Two', completed: true},
-            {label: 'Three', completed: false}
+            {label: 'One', isChecked: false},
+            {label: 'Two', isChecked: true},
+            {label: 'Three', isChecked: false}
         ]} callback={action('changed')}/>)
     });

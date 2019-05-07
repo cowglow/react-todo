@@ -33,10 +33,13 @@ class TaskList extends React.Component {
 
         return (
             <List onChange={callback}>
-                {todos.map((task, index) => (
-                    <TaskElement index={index} label={task.label} isChecked={task.isChecked}
-                                 callback={callbackHandler}/>
-                ))}
+                {todos.map((task, index) => {
+                    // console.log(index, task);
+                    return (
+                        <TaskElement key={index} index={index} label={task.label} isChecked={task.isChecked}
+                                     callback={callbackHandler}/>
+                    )
+                })}
             </List>
         );
     }

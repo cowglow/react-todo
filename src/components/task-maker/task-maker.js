@@ -5,22 +5,6 @@ import {Input, withStyles} from "@material-ui/core";
 import styles from './task-maker.module.css';
 
 class TaskMaker extends React.Component {
-    changeHandler = (event) => {
-        const {callback} = this.props;
-        if (event.key === 'Enter') {
-            const bindElement = document.getElementById('task-text');
-            const newTask = {
-                label: bindElement.value,
-                isChecked: false
-            };
-
-            // Reset
-            bindElement.value = '';
-
-            // Execute Callback
-            callback(newTask);
-        }
-    };
 
     // currentValue = () => {
     //     return document.getElementById('task-text').value();
@@ -29,6 +13,26 @@ class TaskMaker extends React.Component {
     // TODO: Make an array of phrases that placeholder would randomly display.
     // ['What would you like to do next?','Type your task first, then manifest it!]
     render() {
+        const {label} = this.props;
+
+        const changeHandler = (event) => {
+            if (event.key === 'Enter') {
+                const {callback} = this.props;
+                const bindElement = document.getElementById('task-text');
+
+                const newTask = {
+                    label: bindElement.value,
+                    isChecked: false
+                };
+
+                // Reset
+                bindElement.value = '';
+
+                // Execute Callback
+                callback(newTask);
+            }
+        };
+
         return (
             <div className={styles.root}>
                 <Input
@@ -36,8 +40,8 @@ class TaskMaker extends React.Component {
                     type="text"
                     style={{size: '3em', padding: '1rem'}}
                     placeholder="What would you like to do next?"
-                    inputProps={{'arial-label': 'Blank To Do Input'}}
-                    onKeyDown={this.changeHandler}
+                    inputProps={{'arial-label': label}}
+                    onKeyDown={changeHandler}
                     fullWidth={true}
                 />
             </div>
@@ -46,7 +50,7 @@ class TaskMaker extends React.Component {
 }
 
 TaskMaker.propTypes = {
-    label: PropTypes.object.isRequired,
+    label: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(TaskMaker);

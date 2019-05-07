@@ -6,5 +6,5 @@ import TaskMaker from "./task-maker";
 
 storiesOf('Components|TaskMaker', module)
     .add('default', () => {
-        return (<TaskMaker callback={action('changed', 'on')}/>)
+        return (<TaskMaker label="Task Maker Label" callback={action('changed', 'on')}/>)
     });
