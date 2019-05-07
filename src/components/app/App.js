@@ -58,9 +58,9 @@ class App extends React.Component {
         const createNewTask = (taskObject) => {
             let newTaskCollection = this.state.taskCollection;
             newTaskCollection.push(taskObject);
-            this.setState(state => ({
+            this.setState({
                 taskCollection: newTaskCollection
-            }));
+            });
 
             console.log(this.state)
         };
