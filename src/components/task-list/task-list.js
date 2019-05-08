@@ -17,8 +17,10 @@ class TaskList extends React.Component {
     }
 
     render() {
-        const {callback} = this.props;
+        const {callback, filter} = this.props;
         const {todos} = this.state;
+
+        console.log(filter);
 
         const callbackHandler = (task) => {
             let newTodos = todos;
@@ -32,7 +34,7 @@ class TaskList extends React.Component {
         };
 
         return (
-            <List onChange={callback}>
+            <List>
                 {todos.map((task, index) => {
                     // console.log(index, task);
                     return (

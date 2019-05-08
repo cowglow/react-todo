@@ -6,6 +6,7 @@ const req = require.context('../src/components', true, /\.stories\.js$/);
 addParameters({
     options: {
         theme: undefined,
+        // showPanel: false
     },
 });
 

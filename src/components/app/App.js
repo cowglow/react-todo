@@ -72,17 +72,16 @@ class App extends React.Component {
     clearCompleted = () => {
         const sanitizedTaskCollection = this.state.taskCollection.filter((task) => !task.isChecked);
 
-        // console.log(sanitizedTaskCollection);
-
         this.setState({
-            taskCollection: sanitizedTaskCollection
+            taskCollection: sanitizedTaskCollection,
+            tasksCompleted: 0,
+            taskListFilter: null
         });
     };
 
     render() {
         const {classes} = this.props;
-        const {taskCollection, tasksCompleted} = this.state;
-
+        const {taskCollection, tasksCompleted, taskListFilter} = this.state;
 
         const updateTasks = (newProps) => {
             if (newProps) {
@@ -115,7 +114,7 @@ class App extends React.Component {
                 {/* MAIN */}
                 <main className={classes.main}>
                     <TaskMaker label="TaskMaker Label" callback={this.createNewTask}/>
-                    <TaskList todos={taskCollection} callback={updateTasks}/>
+                    <TaskList todos={taskCollection} callback={updateTasks} filter={taskListFilter} />
                 </main>
 
                 {/* FOOTER */}
