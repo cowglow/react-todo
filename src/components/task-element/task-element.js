@@ -24,6 +24,8 @@ class TaskElement extends React.Component {
         });
     }
 
+    // TODO: move `index` and `isChecked` 
+
     render() {
         const {label, index, callback} = this.props;
 

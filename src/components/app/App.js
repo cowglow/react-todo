@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Button, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
+import {AppBar, BottomNavigation, Button, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
 
@@ -12,7 +12,8 @@ import TaskToggle from "../task-toggle/task-toggle";
 
 const styles = theme => ({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        width: '100%'
     },
     header: {
         textAlign: 'left',
@@ -27,10 +28,22 @@ const styles = theme => ({
         flex: '1 0 auto',
     },
     footer: {
-        position: 'absolute',
+        position: 'relative',
         width: '100%',
         padding: '15px',
-        bottom: '0'
+    },
+    stickyFooter: {
+        backgroundColor: 'white',
+        border: 'thin solid ' + theme.palette.primary.light,
+        color: theme.palette.primary.main,
+        position: 'fixed',
+        textAlign: 'center',
+        padding: '0.5em',
+        margin: '1rem',
+        top: 'auto',
+        left: '0',
+        bottom: '0',
+        right: '0',
     },
     icon: {
         width: '3em'
@@ -54,7 +67,7 @@ class App extends React.Component {
             {label: 'Three', isChecked: false}
         ];
 
-        taskListResource.map((task) => {
+        taskListResource.map(task => {
             this.createNewTask(task);
         })
     }
@@ -114,15 +127,20 @@ class App extends React.Component {
                 {/* MAIN */}
                 <main className={classes.main}>
                     <TaskMaker label="TaskMaker Label" callback={this.createNewTask}/>
-                    <TaskList todos={taskCollection} callback={updateTasks} filter={taskListFilter} />
+                    <TaskList todos={taskCollection} callback={updateTasks} filter={taskListFilter}/>
                 </main>
 
                 {/* FOOTER */}
                 <footer className={classes.footer}>
-                    <TaskCount count={taskCollection.length} completedCount={tasksCompleted}/>
-                    <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
-                    <TaskToggle options={'all|active|completed'} callback={toggleTask}/>
-                    <Typography variant="overline" align="center">Made with ReactJS and Material-UI.</Typography>
+                    <BottomNavigation>
+                        <TaskCount count={taskCollection.length} completedCount={tasksCompleted}/>
+                        <TaskToggle options={'all|active|completed'} callback={toggleTask}/>
+                        <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
+                    </BottomNavigation>
+
+                    <div className={classes.stickyFooter}>
+                        <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>
+                    </div>
                 </footer>
             </div>
         );

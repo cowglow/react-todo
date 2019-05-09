@@ -12,6 +12,8 @@ class TaskMaker extends React.Component {
 
     // TODO: Make an array of phrases that placeholder would randomly display.
     // ['What would you like to do next?','Type your task first, then manifest it!]
+
+    // TODO: move the `isChecked` property to parent component
     render() {
         const {label} = this.props;
 
