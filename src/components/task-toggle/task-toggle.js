@@ -19,10 +19,11 @@ class TaskToggle extends React.Component {
 
         this.setState({
             options: options,
+            mode: options[0]
         });
     }
 
-    clickHander = (event, optionIndex) => {
+    clickHandler = (event, optionIndex) => {
         const {callback} = this.props;
 
         this.setState({
@@ -30,7 +31,7 @@ class TaskToggle extends React.Component {
             mode: optionIndex
         });
 
-        callback(this.state.options[optionIndex]);
+        callback(optionIndex);
     };
 
     render() {
@@ -38,20 +39,19 @@ class TaskToggle extends React.Component {
 
         return (
             <RadioGroup
-                aria-label="position"
-                name="position"
-                value={this.state.value}
-                onChange={this.handleChange}
-                row
+                aria-label="toggle control"
+                name="toggleControl"
+                value={mode}
+                onChange={this.clickHandler}
             >
                 {options.map((option, index) => {
                     const label = option.toUpperCase();
                     return (
                         <FormControlLabel
-                            value={label}
+                            value={option}
                             control={<Radio color="primary"/>}
                             label={label}
-                            labelPlacement="bottom"
+                            // labelPlacement="bottom"
                         />)
                 })}
             </RadioGroup>

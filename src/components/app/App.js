@@ -61,20 +61,23 @@ class App extends React.Component {
     }
 
     componentWillMount() {
-        const taskListResource = [
-            {label: 'One', isChecked: false},
-            {label: 'Two', isChecked: true},
-            {label: 'Three', isChecked: false}
-        ];
-
-        taskListResource.map(task => {
-            this.createNewTask(task);
-        })
+        // const taskListResource = [
+        //     {label: 'One', isChecked: false},
+        //     {label: 'Two', isChecked: true},
+        //     {label: 'Three', isChecked: false}
+        // ];
+        //
+        // taskListResource.map(task => {
+        //     this.createNewTask(task);
+        // })
     }
 
-    createNewTask = (taskObject) => {
+    createNewTask = (taskLabel) => {
         let newTaskCollection = this.state.taskCollection;
-        newTaskCollection.push(taskObject);
+        newTaskCollection.push({
+            label: taskLabel,
+            isChecked: false
+        });
 
         this.setState({
             taskCollection: newTaskCollection
@@ -85,10 +88,11 @@ class App extends React.Component {
     clearCompleted = () => {
         const sanitizedTaskCollection = this.state.taskCollection.filter((task) => !task.isChecked);
 
+        console.log(sanitizedTaskCollection);
         this.setState({
             taskCollection: sanitizedTaskCollection,
             tasksCompleted: 0,
-            taskListFilter: null
+            taskListFilter: 'all'
         });
     };
 
@@ -109,6 +113,7 @@ class App extends React.Component {
         const toggleTask = (mode) => {
             console.log('toggle task mode:', mode);
         };
+
 
         return (
             <div className={classes.root}>
