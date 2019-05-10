@@ -6,11 +6,7 @@ import TaskList from "./task-list";
 
 storiesOf('Components|TaskList', module)
     .addDecorator(withKnobs)
-    .addParameters({
-        options: {
-            showPanel: true
-        }
-    })
+
     .add('default', () => {
         const label = 'Filter';
         const options = {

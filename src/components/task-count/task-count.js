@@ -1,6 +1,5 @@
 import React from 'react';
-import {Badge} from "@material-ui/core";
-import {Assignment} from '@material-ui/icons';
+import {Chip, Avatar} from "@material-ui/core";
 
 const styles = theme => ({
     root: {
@@ -31,26 +30,16 @@ class TaskCount extends React.Component {
         return (
             <div className={styles.root} aria-label="List count">
                 {count > 0 ? (
-                    <Badge badgeContent={count} color="primary" className={styles.badge}>
-                        <Assignment/>
-                        <span className={styles.countLabel}>things to do</span>
-                    </Badge>
+                    <Chip avatar={<Avatar>{count}</Avatar>} label="things to do." className={styles.badge}/>
                 ) : (
                     <span>Empty list.</span>
                 )}
 
                 {completedCount > 0 &&
-                <span> | {completedCount} completed!</span>
+                <Chip avatar={<Avatar>{completedCount}</Avatar>} label="completed" variant="outlined"/>
                 }
             </div>
-        );
-        // return (
-        //     <Typography variant={"subtitle2"}>
-        //         {count > 0 ? (<span>{count} things to do</span>) : (<span>Empty list.</span>)}
-        //
-        //
-        //     </Typography>
-        // );
+        )
     }
 }
 

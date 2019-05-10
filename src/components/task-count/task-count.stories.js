@@ -5,6 +5,11 @@ import TaskCount from "./task-count";
 
 storiesOf('Components|TaskCount', module)
     .addDecorator(withKnobs)
+    .addParameters({
+        options: {
+            showPanel: true
+        }
+    })
     .add('default', () => {
         /*
         const getRandomNumber = () => {
