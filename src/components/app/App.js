@@ -133,7 +133,7 @@ class App extends React.Component {
                 {/* FOOTER */}
                 <footer className={classes.footer}>
                     <BottomNavigation>
-                        <TaskCount count={taskCollection.length} completedCount={tasksCompleted}/>
+                        <TaskCount count={taskCollection.length - tasksCompleted}/>
                         <TaskToggle options={'all|active|completed'} callback={toggleTask}/>
                         <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
                     </BottomNavigation>

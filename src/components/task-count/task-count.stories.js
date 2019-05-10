@@ -11,16 +11,7 @@ storiesOf('Components|TaskCount', module)
         }
     })
     .add('default', () => {
-        /*
-        const getRandomNumber = () => {
-            return Math.floor(Math.random() * Math.floor(3))
-        };
-
-        const currentValueDefault = getRandomNumber();
-        const completeCountDefault = getRandomNumber();
-        */
         const currentValueDefault = 6;
-        const completeCountDefault = 0;
         const options = {
             range: true,
             min: 0,
@@ -30,6 +21,8 @@ storiesOf('Components|TaskCount', module)
         const groupId = 'GROUP-ID1';
 
         const currentValue = number('Number of Tasks', currentValueDefault, options, groupId);
-        const completedCount = number('Completed Tasks', completeCountDefault, options, groupId);
-        return (<TaskCount count={currentValue} completedCount={completedCount}/>)
+        return (<TaskCount count={currentValue}/>)
+    })
+    .add('empty values', () => {
+        return (<TaskCount/>)
     });
