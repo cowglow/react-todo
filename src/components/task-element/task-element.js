@@ -5,17 +5,9 @@ import styles from './task-element.module.css';
 
 class TaskElement extends React.Component {
     state = {
-        index: null,
         label: '',
         isChecked: false
     };
-
-    constructor() {
-        super();
-        this.state = {
-            isChecked: false
-        }
-    }
 
     componentWillMount() {
         const {isChecked} = this.props;

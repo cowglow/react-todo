@@ -29,9 +29,9 @@ const styles = theme => ({
         flex: '1 0 auto',
     },
     footer: {
-        position: 'relative',
-        width: '100%',
-        padding: '15px',
+        border: 'thin solid yellow',
+        display: 'flex',
+        flexFlow: 'spaceAround'
     },
     stickyFooter: {
         backgroundColor: 'white',
@@ -49,55 +49,57 @@ const styles = theme => ({
     icon: {
         width: '3em'
     },
+    btnClearCompleted: {
+        border: 'thin solid green',
+        padding: '0',
+    }
 });
 
 class App extends React.Component {
 
     state = {
         taskCollection: [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}],
-        tasksCompleted: 0
+        tasksCompleted: 0,
+        taskFilter: 'all'
     };
 
     /* Create new task */
     createNewTask = (taskLabel) => {
-        // Duplicate collection
-        let newTaskCollection = this.state.taskCollection;
+        const {taskCollection} = this.state;
+        let taskCollectionCopy = taskCollection;
 
         // Add new task
-        newTaskCollection.push({
+        taskCollectionCopy.push({
             label: taskLabel,
             isChecked: false
         });
 
         // Update state
         this.setState({
-            taskCollection: newTaskCollection
+            taskCollection: taskCollectionCopy
         });
 
     };
 
-    /* Update task lists */
-    updateTasks(newProps) {
-        console.log(newProps);
-        // if (newProps) {
-        //     this.setState({
-        //         taskCollection: newProps,
-        //         tasksCompleted: completedTasks
-            // });
-        // }
-    };
-
     /* Clear completed tasks */
     clearCompleted = () => {
-        const sanitizedTaskCollection = this.state.taskCollection.filter((task) => !task.isChecked);
+        const {taskCollection} = this.state;
+        const sanitizedTaskCollection = taskCollection.filter((task) => !task.isChecked);
 
-        console.log('sanitizedTaskCollection', sanitizedTaskCollection);
+        this.setState({
+            taskCollection: sanitizedTaskCollection,
+            // tasksCompleted: 0,
+            // taskListFilter: 'all'
+        });
+    };
 
-        // this.setState({
-        //     taskCollection: sanitizedTaskCollection,
-        //     tasksCompleted: 0,
-        //     taskListFilter: 'all'
-        // });
+    updateTasks = (newProps) => {
+        if (newProps) {
+            this.setState({
+                taskCollection: newProps,
+                tasksCompleted: 0
+            });
+        }
     };
 
     static toggleTask(mode) {
@@ -108,6 +110,8 @@ class App extends React.Component {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted, taskListFilter} = this.state;
 
+        // TODO: figure out why the updating is getting stuck
+        console.log('taskCollection', taskCollection);
         return (
             <div className={classes.root}>
                 {/* HEADER */}
@@ -130,10 +134,12 @@ class App extends React.Component {
 
                 {/* FOOTER */}
                 <footer className={classes.footer}>
-                    <BottomNavigation>
+                    <BottomNavigation class={classes.footer}>
                         <TaskCount count={taskCollection.length - tasksCompleted}/>
-                        <TaskToggle options={'all|active|completed'} callback={App.toggleTask}/>
-                        <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
+                        <TaskToggle options={'all|active|completed'} callback={App.toggleTask} path="wow"/>
+                        <div className={classes.btnClearCompleted}>
+                            <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
+                        </div>
                     </BottomNavigation>
 
                     <div className={classes.stickyFooter}>

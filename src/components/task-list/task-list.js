@@ -5,8 +5,20 @@ import TaskElement from "../task-element/task-element";
 
 class TaskList extends React.Component {
 
+    state = {
+        todos: []
+    };
+
+    componentWillMount() {
+        const {todos} = this.props;
+        this.setState({
+            todos: todos
+        })
+    }
+
     render() {
-        const {todos, callback, filter} = this.props;
+        const {callback, filter} = this.props;
+        const {todos} = this.state;
 
         let listItems = todos;
 
