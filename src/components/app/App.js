@@ -10,6 +10,7 @@ import TaskList from "../task-list/task-list";
 import TaskCount from "../task-count/task-count";
 import TaskToggle from "../task-toggle/task-toggle";
 
+// TODO: How does this get imported as a module
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -52,61 +53,51 @@ const styles = theme => ({
 
 class App extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            taskCollection: [],
-            tasksCompleted: 0
-        };
-    }
+    state = {
+        taskCollection: [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}],
+        tasksCompleted: 0
+    };
 
-    componentWillMount() {
-        // const taskListResource = [
-        //     {label: 'One', isChecked: false},
-        //     {label: 'Two', isChecked: true},
-        //     {label: 'Three', isChecked: false}
-        // ];
-        //
-        // taskListResource.map(task => {
-        //     this.createNewTask(task);
-        // })
-    }
-
+    /* Create new task */
     createNewTask = (taskLabel) => {
-
-        console.log('trim', taskLabel.trim());
-
+        // Duplicate collection
         let newTaskCollection = this.state.taskCollection;
+
+        // Add new task
         newTaskCollection.push({
             label: taskLabel,
             isChecked: false
         });
 
+        // Update state
         this.setState({
             taskCollection: newTaskCollection
         });
 
     };
 
+    /* Update task lists */
+    updateTasks(newProps) {
+        console.log(newProps);
+        // if (newProps) {
+        //     this.setState({
+        //         taskCollection: newProps,
+        //         tasksCompleted: completedTasks
+            // });
+        // }
+    };
+
+    /* Clear completed tasks */
     clearCompleted = () => {
         const sanitizedTaskCollection = this.state.taskCollection.filter((task) => !task.isChecked);
 
-        this.setState({
-            taskCollection: sanitizedTaskCollection,
-            tasksCompleted: 0,
-            taskListFilter: 'all'
-        });
-    };
+        console.log('sanitizedTaskCollection', sanitizedTaskCollection);
 
-
-    updateTasks(newProps) {
-        if (newProps) {
-            const completedTasks = newProps.filter((task) => task.isChecked).length;
-            this.setState({
-                taskCollection: newProps,
-                tasksCompleted: completedTasks
-            });
-        }
+        // this.setState({
+        //     taskCollection: sanitizedTaskCollection,
+        //     tasksCompleted: 0,
+        //     taskListFilter: 'all'
+        // });
     };
 
     static toggleTask(mode) {

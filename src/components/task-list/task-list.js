@@ -13,23 +13,21 @@ class TaskList extends React.Component {
         if (filter === 'completed') {
             listItems = todos.filter(todo => todo.isChecked === true)
         }
+
         if (filter === 'active') {
             listItems = todos.filter(todo => todo.isChecked === false)
         }
 
-        const callbackHandler = (task) => {
-            // TODO: filter should update. Maybe it is a good idea to return the `todos` to a state instead of props
-            todos[parseInt(task.index)] = task;
-            callback(listItems);
+        const callbackHandler = (task, index) => {
+            todos[index] = task;
+            callback(todos);
         };
-
 
         return (
             <List>
                 {listItems.map((task, index) => {
-                    console.log(task);
                     return (
-                        <TaskElement key={index} label={task.label} isChecked={task.isChecked}
+                        <TaskElement key={index} index={index} label={task.label} isChecked={task.isChecked}
                                      callback={callbackHandler}/>
                     )
                 })}

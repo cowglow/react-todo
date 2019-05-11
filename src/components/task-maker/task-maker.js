@@ -11,10 +11,14 @@ class TaskMaker extends React.Component {
     };
 
     updatePlaceholderText() {
-
+        // TODO: make provider for this
         const placeholderTextOptions = [
             'What would you like to do next?',
-            'Type your task first, then manifest it!'
+            'Type your task first, then manifest it!',
+            'Put another on your plate!',
+            'What\'s next to do?',
+            'Any other duties?!',
+            'You the boss, you know what to do!'
         ];
 
         const optionCount = placeholderTextOptions.length;
@@ -26,9 +30,10 @@ class TaskMaker extends React.Component {
     }
 
     render() {
+        let {placeholderText} = this.state;
+
         const {label} = this.props;
 
-        let {placeholderText} = this.state;
         if (placeholderText === '') {
             placeholderText = this.updatePlaceholderText()
         }
@@ -40,7 +45,6 @@ class TaskMaker extends React.Component {
 
                 const defaultValue = '';
                 const {callback} = this.props;
-
 
                 if (elementValue.length > 0) {
                     // Prep data

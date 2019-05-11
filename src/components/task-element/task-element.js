@@ -25,7 +25,7 @@ class TaskElement extends React.Component {
     }
 
     render() {
-        const {label, callback} = this.props;
+        const {index, label, callback} = this.props;
 
         const clickHandler = () => {
             const checkedState = !this.state.isChecked;
@@ -35,10 +35,9 @@ class TaskElement extends React.Component {
             });
 
             callback({
-                index: this.props.index,
                 label: this.props.label,
                 isChecked: checkedState
-            });
+            }, index);
         };
 
         return (
