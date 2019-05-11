@@ -20,8 +20,6 @@ class TaskMaker extends React.Component {
         const optionCount = placeholderTextOptions.length;
         const randomIndex = Math.floor(Math.random() * optionCount);
 
-        console.log('updating state to:', placeholderTextOptions[randomIndex]);
-
         this.setState({
             placeholderText: placeholderTextOptions[randomIndex]
         });
@@ -31,21 +29,32 @@ class TaskMaker extends React.Component {
         const {label} = this.props;
 
         let {placeholderText} = this.state;
-        if (placeholderText === ''){
+        if (placeholderText === '') {
             placeholderText = this.updatePlaceholderText()
         }
 
         const changeHandler = (event) => {
             if (event.key === 'Enter') {
+                const bindedElement = event.target;
+                const elementValue = event.target.value;
+
+                const defaultValue = '';
                 const {callback} = this.props;
-                const bindElement = document.getElementById('task-text');
 
-                this.updatePlaceholderText();
-                // Execute Callback
-                callback(bindElement.value);
 
-                // Reset
-                bindElement.value = '';
+                if (elementValue.length > 0) {
+                    // Prep data
+                    const callbackArgs = elementValue;
+
+                    // Reset
+                    bindedElement.value = defaultValue;
+
+                    // Update the placeholder text
+                    this.updatePlaceholderText();
+
+                    // Execute Callback
+                    callback(callbackArgs);
+                }
             }
         };
 

@@ -73,6 +73,9 @@ class App extends React.Component {
     }
 
     createNewTask = (taskLabel) => {
+
+        console.log('trim', taskLabel.trim());
+
         let newTaskCollection = this.state.taskCollection;
         newTaskCollection.push({
             label: taskLabel,
@@ -88,7 +91,6 @@ class App extends React.Component {
     clearCompleted = () => {
         const sanitizedTaskCollection = this.state.taskCollection.filter((task) => !task.isChecked);
 
-        console.log(sanitizedTaskCollection);
         this.setState({
             taskCollection: sanitizedTaskCollection,
             tasksCompleted: 0,
@@ -96,24 +98,24 @@ class App extends React.Component {
         });
     };
 
+
+    updateTasks(newProps) {
+        if (newProps) {
+            const completedTasks = newProps.filter((task) => task.isChecked).length;
+            this.setState({
+                taskCollection: newProps,
+                tasksCompleted: completedTasks
+            });
+        }
+    };
+
+    static toggleTask(mode) {
+        console.log('toggle task mode:', mode);
+    };
+
     render() {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted, taskListFilter} = this.state;
-
-        const updateTasks = (newProps) => {
-            if (newProps) {
-                const completedTasks = newProps.filter((task) => task.isChecked).length;
-                this.setState({
-                    taskCollection: newProps,
-                    tasksCompleted: completedTasks
-                });
-            }
-        };
-
-        const toggleTask = (mode) => {
-            console.log('toggle task mode:', mode);
-        };
-
 
         return (
             <div className={classes.root}>
@@ -132,14 +134,14 @@ class App extends React.Component {
                 {/* MAIN */}
                 <main className={classes.main}>
                     <TaskMaker label="TaskMaker Label" callback={this.createNewTask}/>
-                    <TaskList todos={taskCollection} callback={updateTasks} filter={taskListFilter}/>
+                    <TaskList todos={taskCollection} callback={this.updateTasks} filter={taskListFilter}/>
                 </main>
 
                 {/* FOOTER */}
                 <footer className={classes.footer}>
                     <BottomNavigation>
                         <TaskCount count={taskCollection.length - tasksCompleted}/>
-                        <TaskToggle options={'all|active|completed'} callback={toggleTask}/>
+                        <TaskToggle options={'all|active|completed'} callback={App.toggleTask}/>
                         <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
                     </BottomNavigation>
 

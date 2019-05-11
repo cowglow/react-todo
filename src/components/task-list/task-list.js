@@ -19,7 +19,6 @@ class TaskList extends React.Component {
 
         const callbackHandler = (task) => {
             // TODO: filter should update. Maybe it is a good idea to return the `todos` to a state instead of props
-
             todos[parseInt(task.index)] = task;
             callback(listItems);
         };
