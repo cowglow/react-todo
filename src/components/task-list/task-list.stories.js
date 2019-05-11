@@ -5,14 +5,18 @@ import {select, withKnobs} from "@storybook/addon-knobs";
 import TaskList from "./task-list";
 
 storiesOf('Components|TaskList', module)
+    .addParameters({
+        options: {
+            showPanel: true
+        }
+    })
     .addDecorator(withKnobs)
-
     .add('default', () => {
         const label = 'Filter';
         const options = {
             All: 'all',
-            Completed: 'isChecked'
-
+            Active: 'active',
+            Completed: 'completed'
         };
         const defaultValue = 'all';
         const groupId = 'GROUP-ID1';

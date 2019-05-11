@@ -59,18 +59,4 @@ class TaskToggle extends React.Component {
     }
 }
 
-// return (
-//     <BottomNavigation value={mode} showLabels className={styles.toggleButton} onChange={this.clickHander}>
-//         {options.map((option, index) => {
-//             const label = option.toUpperCase();
-//             // console.log(this.state.mode,this.state.options.indexOf(option));
-//             if (this.state.mode === this.state.options.indexOf(option)) {
-//                 return (<BottomNavigationAction label={label} icon={<Favorite/>}/>)
-//             } else {
-//                 return (<BottomNavigationAction label={label} icon={<FavoriteBorderOutlined/>}/>)
-//             }
-//         })}
-//     </BottomNavigation>
-// );
-
 export default TaskToggle;

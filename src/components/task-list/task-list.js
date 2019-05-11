@@ -5,40 +5,32 @@ import TaskElement from "../task-element/task-element";
 
 class TaskList extends React.Component {
 
-    state = {
-        todos: []
-    };
-
-    componentWillMount() {
-        const {todos} = this.props;
-        this.setState({
-            todos: todos
-        });
-    }
-
     render() {
-        const {callback, filter} = this.props;
-        const {todos} = this.state;
+        const {todos, callback, filter} = this.props;
 
-        console.log(filter);
+        let listItems = todos;
+
+        if (filter === 'completed') {
+            listItems = todos.filter(todo => todo.isChecked === true)
+        }
+        if (filter === 'active') {
+            listItems = todos.filter(todo => todo.isChecked === false)
+        }
 
         const callbackHandler = (task) => {
-            let newTodos = todos;
-            newTodos[parseInt(task.index)] = task;
+            // TODO: filter should update. Maybe it is a good idea to return the `todos` to a state instead of props
 
-            this.setState({
-                todos: newTodos
-            });
-
-            callback(todos);
+            todos[parseInt(task.index)] = task;
+            callback(listItems);
         };
+
 
         return (
             <List>
-                {todos.map((task, index) => {
-                    // console.log(index, task);
+                {listItems.map((task, index) => {
+                    console.log(task);
                     return (
-                        <TaskElement key={index} index={index} label={task.label} isChecked={task.isChecked}
+                        <TaskElement key={index} label={task.label} isChecked={task.isChecked}
                                      callback={callbackHandler}/>
                     )
                 })}

@@ -24,10 +24,8 @@ class TaskElement extends React.Component {
         });
     }
 
-    // TODO: move `index` and `isChecked` 
-
     render() {
-        const {label, index, callback} = this.props;
+        const {label, callback} = this.props;
 
         const clickHandler = () => {
             const checkedState = !this.state.isChecked;
@@ -44,7 +42,7 @@ class TaskElement extends React.Component {
         };
 
         return (
-            <ListItem key={index} dense button onClick={clickHandler}>
+            <ListItem dense button onClick={clickHandler}>
                 <Checkbox checked={this.state.isChecked} inputProps={{'arial-label': label}}/>
                 <ListItemText primary={label}
                               className={(this.state.isChecked ? styles.completedTask : styles.uncompletedTask)}/>

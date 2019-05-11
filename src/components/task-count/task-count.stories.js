@@ -8,6 +8,7 @@ storiesOf('Components|TaskCount', module)
     .addParameters({
         options: {
             showPanel: true
+
         }
     })
     .add('default', () => {
