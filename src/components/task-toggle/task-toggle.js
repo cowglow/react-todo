@@ -45,7 +45,7 @@ class TaskToggle extends React.Component {
                 onChange={this.clickHandler}
                 className={styles.toggleButton}
             >
-                {options.map((option, index) => {
+                {options.map((option) => {
                     const label = option.toUpperCase();
                     return (
                         <FormControlLabel

@@ -4,6 +4,7 @@ import {Checkbox, ListItem, ListItemText} from "@material-ui/core";
 import styles from './task-element.module.css';
 
 class TaskElement extends React.Component {
+
     state = {
         label: '',
         isChecked: false

@@ -53,13 +53,14 @@ const styles = theme => ({
 
 class App extends React.Component {
 
+    state = {
+        taskCollection: [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}],
+        tasksCompleted: 0,
+    };
+
     constructor(){
         super();
-        this.state = {
-            taskCollection: [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}],
-            tasksCompleted: 0,
-            taskFilter: 'all'
-        };
+        const taskListFilter = 'all';
     }
 
     /* Create new task */
@@ -77,7 +78,6 @@ class App extends React.Component {
         this.setState({
             taskCollection: taskCollectionCopy
         });
-
     };
 
     /* Clear completed tasks */
@@ -92,9 +92,8 @@ class App extends React.Component {
 
     /* Toggle task filter */
     toggleTaskFilter(mode) {
-            this.setState({
-            taskFilter: mode
-        });
+        // console.log('taskFilter:', mode);
+        this.taskFilter = mode;
     };
 
     /* Update task collection */
@@ -109,7 +108,7 @@ class App extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const {taskCollection, tasksCompleted, taskListFilter} = this.state;
+        const {taskCollection, tasksCompleted} = this.state;
 
         // TODO: figure out why the updating is getting stuck
 
@@ -130,7 +129,7 @@ class App extends React.Component {
                 {/* MAIN */}
                 <main className={classes.main}>
                     <TaskMaker label="TaskMaker Label" callback={this.createNewTask}/>
-                    <TaskList todos={taskCollection} callback={this.updateTasks} filter={taskListFilter}/>
+                    <TaskList todos={taskCollection} callback={this.updateTasks} filter={this.taskListFilter}/>
                 </main>
 
                 {/* Controls */}
