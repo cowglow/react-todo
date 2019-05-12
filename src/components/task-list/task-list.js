@@ -5,20 +5,8 @@ import TaskElement from "../task-element/task-element";
 
 class TaskList extends React.Component {
 
-    state = {
-        todos: []
-    };
-
-    componentWillMount() {
-        const {todos} = this.props;
-        this.setState({
-            todos: todos
-        })
-    }
-
     render() {
-        const {callback, filter} = this.props;
-        const {todos} = this.state;
+        const {callback, todos, filter} = this.props;
 
         let listItems = todos;
 
@@ -31,6 +19,9 @@ class TaskList extends React.Component {
         }
 
         const callbackHandler = (task, index) => {
+            console.log('task:', task);
+            console.log('index:', index);
+
             todos[index] = task;
             callback(todos);
         };

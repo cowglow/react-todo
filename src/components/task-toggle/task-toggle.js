@@ -24,9 +24,10 @@ class TaskToggle extends React.Component {
 
     clickHandler = (event, optionIndex) => {
         const {callback} = this.props;
+        const {options} = this.state;
 
         this.setState({
-            options: this.state.options,
+            options: options,
             mode: optionIndex
         });
 

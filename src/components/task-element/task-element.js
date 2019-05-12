@@ -9,34 +9,22 @@ class TaskElement extends React.Component {
         isChecked: false
     };
 
-    componentWillMount() {
-        const {isChecked} = this.props;
-        this.setState({
-            isChecked: isChecked
-        });
-    }
+    clickHandler() {
+        const {index, callback} = this.props;
+        callback({
+            label: this.props.label,
+            isChecked: !this.props.isChecked
+        }, index);
+    };
 
     render() {
-        const {index, label, callback} = this.props;
-
-        const clickHandler = () => {
-            const checkedState = !this.state.isChecked;
-
-            this.setState({
-                isChecked: checkedState
-            });
-
-            callback({
-                label: this.props.label,
-                isChecked: checkedState
-            }, index);
-        };
+        const {index, label, isChecked} = this.props;
 
         return (
-            <ListItem dense button onClick={clickHandler}>
-                <Checkbox checked={this.state.isChecked} inputProps={{'arial-label': label}}/>
+            <ListItem dense button onClick={() => this.clickHandler()}>
+                <Checkbox id={'check' + index} checked={isChecked} inputProps={{'arial-label': label}}/>
                 <ListItemText primary={label}
-                              className={(this.state.isChecked ? styles.completedTask : styles.uncompletedTask)}/>
+                              className={(isChecked ? styles.completedTask : styles.uncompletedTask)}/>
             </ListItem>
         );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, BottomNavigation, Button, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
+import {AppBar, Button, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
 
@@ -25,13 +25,10 @@ const styles = theme => ({
         marginRight: 20,
     },
     main: {
-        // border: 'thin solid red',
         flex: '1 0 auto',
     },
-    footer: {
-        border: 'thin solid yellow',
-        display: 'flex',
-        flexFlow: 'spaceAround'
+    controls: {
+        border: 'thin solid green',
     },
     stickyFooter: {
         backgroundColor: 'white',
@@ -51,17 +48,19 @@ const styles = theme => ({
     },
     btnClearCompleted: {
         border: 'thin solid green',
-        padding: '0',
     }
 });
 
 class App extends React.Component {
 
-    state = {
-        taskCollection: [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}],
-        tasksCompleted: 0,
-        taskFilter: 'all'
-    };
+    constructor(){
+        super();
+        this.state = {
+            taskCollection: [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}],
+            tasksCompleted: 0,
+            taskFilter: 'all'
+        };
+    }
 
     /* Create new task */
     createNewTask = (taskLabel) => {
@@ -88,8 +87,13 @@ class App extends React.Component {
 
         this.setState({
             taskCollection: sanitizedTaskCollection,
-            tasksCompleted: 0,
-            taskListFilter: 'all'
+        });
+    };
+
+    /* Toggle task filter */
+    toggleTaskFilter(mode) {
+            this.setState({
+            taskFilter: mode
         });
     };
 
@@ -103,21 +107,12 @@ class App extends React.Component {
         }
     };
 
-
     render() {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted, taskListFilter} = this.state;
 
-        /* Toggle task filter */
-        const toggleTaskFilter = (mode) => {
-            console.log('mode:', mode);
-            this.setState({
-                taskListFilter: mode
-            });
-        };
-
         // TODO: figure out why the updating is getting stuck
-        console.log('taskCollection', taskCollection);
+
         return (
             <div className={classes.root}>
                 {/* HEADER */}
@@ -138,19 +133,16 @@ class App extends React.Component {
                     <TaskList todos={taskCollection} callback={this.updateTasks} filter={taskListFilter}/>
                 </main>
 
-                {/* FOOTER */}
-                <footer className={classes.footer}>
-                    <BottomNavigation class={classes.footer}>
-                        <TaskCount count={taskCollection.length - tasksCompleted}/>
-                        <TaskToggle options={'all|active|completed'} callback={toggleTaskFilter} path="wow"/>
-                        <div className={classes.btnClearCompleted}>
-                            <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
-                        </div>
-                    </BottomNavigation>
+                {/* Controls */}
+                <div className={classes.controls}>
+                    <TaskCount count={taskCollection.length - tasksCompleted}/>
+                    <TaskToggle options={'all|active|completed'} callback={this.toggleTaskFilter}/>
+                    <Button color="primary" onClick={() => this.clearCompleted()}>Clear completed</Button>
+                </div>
 
-                    <div className={classes.stickyFooter}>
-                        <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>
-                    </div>
+                {/*FOOTER*/}
+                <footer className={classes.stickyFooter}>
+                    <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>
                 </footer>
             </div>
         );
