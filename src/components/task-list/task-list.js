@@ -19,9 +19,6 @@ class TaskList extends React.Component {
         }
 
         const callbackHandler = (task, index) => {
-            console.log('task:', task);
-            console.log('index:', index);
-
             todos[index] = task;
             callback(todos);
         };

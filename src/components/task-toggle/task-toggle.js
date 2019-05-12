@@ -38,9 +38,10 @@ class TaskToggle extends React.Component {
                 value={selectedValue}
                 className={styles.toggleButton}
             >
-                {options.map((option) => {
+                {options.map((option, index) => {
                     const label = option.toUpperCase();
                     return (<FormControlLabel
+                        key={index}
                         value={option}
                         control={<Radio onChange={() => this.clickHandler(option)}
                                         checked={this.state.selectedValue === option} color="primary"/>}

@@ -53,14 +53,16 @@ const styles = theme => ({
 
 class App extends React.Component {
 
-    state = {
-        taskCollection: [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}],
-        tasksCompleted: 0,
-    };
-
     constructor(){
         super();
-        const taskListFilter = 'all';
+
+        const repoData = [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}];
+
+        this.state = {
+            taskCollection: repoData,
+            tasksCompleted: repoData.filter(task => task.isChecked === true).length,
+            taskListFilter: null
+        };
     }
 
     /* Create new task */
@@ -91,26 +93,25 @@ class App extends React.Component {
     };
 
     /* Toggle task filter */
-    toggleTaskFilter(mode) {
-        console.log('taskFilter:', mode);
-        // this.taskFilter = mode;
+    toggleTaskFilter(filterValue) {
+        this.setState({
+            taskListFilter: filterValue
+        });
     };
 
     /* Update task collection */
-    updateTasks = (newProps) => {
-        if (newProps) {
+    updateTasks = (newTaskList) => {
+        if (newTaskList) {
             this.setState({
-                taskCollection: newProps,
-                tasksCompleted: 0
+                taskCollection: newTaskList,
+                tasksCompleted: newTaskList.filter(task => task.isChecked === true).length
             });
         }
     };
 
     render() {
         const {classes} = this.props;
-        const {taskCollection, tasksCompleted} = this.state;
-
-        // TODO: figure out why the updating is getting stuck
+        const {taskCollection, tasksCompleted, taskListFilter} = this.state;
 
         return (
             <div className={classes.root}>
@@ -129,13 +130,13 @@ class App extends React.Component {
                 {/* MAIN */}
                 <main className={classes.main}>
                     <TaskMaker label="TaskMaker Label" callback={this.createNewTask}/>
-                    <TaskList todos={taskCollection} callback={this.updateTasks} filter={this.taskListFilter}/>
+                    <TaskList todos={taskCollection} callback={this.updateTasks} filter={taskListFilter}/>
                 </main>
 
                 {/* Controls */}
                 <div className={classes.controls}>
                     <TaskCount count={taskCollection.length - tasksCompleted}/>
-                    <TaskToggle options={['all','active','completed']} callback={this.toggleTaskFilter}/>
+                    <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
                     <Button color="primary" onClick={() => this.clearCompleted()}>Clear completed</Button>
                 </div>
 
