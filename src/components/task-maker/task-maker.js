@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {Input, withStyles} from "@material-ui/core";
 
-import styles from './task-maker.module.css';
-
 class TaskMaker extends React.Component {
 
     state = {
@@ -62,19 +60,16 @@ class TaskMaker extends React.Component {
             }
         };
 
-
         return (
-            <div className={styles.root}>
-                <Input
-                    id="task-text"
-                    type="text"
-                    style={{size: '3em', padding: '1rem'}}
-                    placeholder={placeholderText}
-                    inputProps={{'arial-label': label}}
-                    onKeyDown={changeHandler}
-                    fullWidth={true}
-                />
-            </div>
+            <Input
+                id="task-text"
+                type="text"
+                style={{size: '3em', padding: '1rem'}}
+                placeholder={placeholderText}
+                inputProps={{'arial-label': label}}
+                onKeyDown={changeHandler}
+                fullWidth={true}
+            />
         );
     }
 }
@@ -83,4 +78,4 @@ TaskMaker.propTypes = {
     label: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(TaskMaker);
+export default TaskMaker;

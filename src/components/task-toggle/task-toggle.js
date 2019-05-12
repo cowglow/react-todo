@@ -1,8 +1,6 @@
 import React from 'react';
 import {RadioGroup, FormControlLabel, Radio} from "@material-ui/core";
 
-import styles from './task-toggle.module.css';
-
 class TaskToggle extends React.Component {
 
     state = {
@@ -36,7 +34,7 @@ class TaskToggle extends React.Component {
                 aria-label="toggle control"
                 name="toggleControl"
                 value={selectedValue}
-                className={styles.toggleButton}
+                row
             >
                 {options.map((option, index) => {
                     const label = option.toUpperCase();
@@ -47,7 +45,6 @@ class TaskToggle extends React.Component {
                                         checked={this.state.selectedValue === option} color="primary"/>}
                         label={label}
                         labelPlacement="bottom"
-                        className={styles.radio}
                     />)
                 })}
             </RadioGroup>

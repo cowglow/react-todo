@@ -27,7 +27,7 @@ const styles = theme => ({
         flex: '1 0 auto',
     },
     controls: {
-        border: 'thin solid green',
+        // border: 'thin solid green',
         display: 'flex',
         justifyContent: 'space-around'
     },
@@ -48,7 +48,7 @@ const styles = theme => ({
         width: '3em'
     },
     btnClearCompleted: {
-        border: 'thin solid green',
+        // border: 'thin solid green',
     }
 });
 
@@ -139,7 +139,7 @@ class App extends React.Component {
                 <div className={classes.controls}>
                     <TaskCount count={taskCollection.length - tasksCompleted}/>
                     <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
-                    <Button color="primary" onClick={() => this.clearCompleted()}>Clear completed</Button>
+                    <Button variant="raised" color="primary" onClick={() => this.clearCompleted()}>Clear completed</Button>
                 </div>
 
                 {/*FOOTER*/}
