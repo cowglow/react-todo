@@ -82,17 +82,18 @@ class App extends React.Component {
     };
 
     /* Clear completed tasks */
-    clearCompleted = () => {
+    clearCompleted() {
         const {taskCollection} = this.state;
         const sanitizedTaskCollection = taskCollection.filter((task) => !task.isChecked);
 
         this.setState({
             taskCollection: sanitizedTaskCollection,
-            // tasksCompleted: 0,
-            // taskListFilter: 'all'
+            tasksCompleted: 0,
+            taskListFilter: 'all'
         });
     };
 
+    /* Update task collection */
     updateTasks = (newProps) => {
         if (newProps) {
             this.setState({
@@ -102,13 +103,18 @@ class App extends React.Component {
         }
     };
 
-    static toggleTask(mode) {
-        console.log('toggle task mode:', mode);
-    };
 
     render() {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted, taskListFilter} = this.state;
+
+        /* Toggle task filter */
+        const toggleTaskFilter = (mode) => {
+            console.log('mode:', mode);
+            this.setState({
+                taskListFilter: mode
+            });
+        };
 
         // TODO: figure out why the updating is getting stuck
         console.log('taskCollection', taskCollection);
@@ -136,7 +142,7 @@ class App extends React.Component {
                 <footer className={classes.footer}>
                     <BottomNavigation class={classes.footer}>
                         <TaskCount count={taskCollection.length - tasksCompleted}/>
-                        <TaskToggle options={'all|active|completed'} callback={App.toggleTask} path="wow"/>
+                        <TaskToggle options={'all|active|completed'} callback={toggleTaskFilter} path="wow"/>
                         <div className={classes.btnClearCompleted}>
                             <Button color="primary" onClick={this.clearCompleted}>Clear completed</Button>
                         </div>

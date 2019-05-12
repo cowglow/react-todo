@@ -1,6 +1,5 @@
 import React from 'react';
 import {RadioGroup, FormControlLabel, Radio} from "@material-ui/core";
-import {Favorite, FavoriteBorderOutlined} from '@material-ui/icons';
 
 import styles from './task-toggle.module.css';
 
