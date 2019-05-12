@@ -6,54 +6,47 @@ import styles from './task-toggle.module.css';
 class TaskToggle extends React.Component {
 
     state = {
-        options: [],
-        mode: 0
+        selectedValue: null
     };
 
     componentWillMount() {
-        let {options} = this.props;
-        if (typeof options !== "object") {
-            options = options.split('|');
-        }
+        const {options} = this.props;
 
         this.setState({
-            options: options,
-            mode: options[0]
+            selectedValue: options[0]
         });
     }
 
-    clickHandler = (event, optionIndex) => {
+    clickHandler = (selectedValue) => {
         const {callback} = this.props;
-        const {options} = this.state;
 
         this.setState({
-            options: options,
-            mode: optionIndex
+            selectedValue: selectedValue,
         });
 
-        callback(optionIndex);
+        callback(selectedValue);
     };
 
     render() {
-        const {options, mode} = this.state;
+        const {options} = this.props;
+        const {selectedValue} = this.state;
 
         return (
             <RadioGroup
                 aria-label="toggle control"
                 name="toggleControl"
-                value={mode}
-                onChange={this.clickHandler}
+                value={selectedValue}
                 className={styles.toggleButton}
             >
                 {options.map((option) => {
                     const label = option.toUpperCase();
-                    return (
-                        <FormControlLabel
-                            value={option}
-                            control={<Radio color="primary"/>}
-                            label={label}
-                            // labelPlacement="bottom"
-                        />)
+                    return (<FormControlLabel
+                        value={option}
+                        control={<Radio onChange={() => this.clickHandler(option)}
+                                        checked={this.state.selectedValue === option} color="primary"/>}
+                        label={label}
+                        // labelPlacement="bottom"
+                    />)
                 })}
             </RadioGroup>
         );

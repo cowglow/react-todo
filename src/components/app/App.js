@@ -92,8 +92,8 @@ class App extends React.Component {
 
     /* Toggle task filter */
     toggleTaskFilter(mode) {
-        // console.log('taskFilter:', mode);
-        this.taskFilter = mode;
+        console.log('taskFilter:', mode);
+        // this.taskFilter = mode;
     };
 
     /* Update task collection */
@@ -135,7 +135,7 @@ class App extends React.Component {
                 {/* Controls */}
                 <div className={classes.controls}>
                     <TaskCount count={taskCollection.length - tasksCompleted}/>
-                    <TaskToggle options={'all|active|completed'} callback={this.toggleTaskFilter}/>
+                    <TaskToggle options={['all','active','completed']} callback={this.toggleTaskFilter}/>
                     <Button color="primary" onClick={() => this.clearCompleted()}>Clear completed</Button>
                 </div>
 
