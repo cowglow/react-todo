@@ -46,7 +46,8 @@ class TaskToggle extends React.Component {
                         control={<Radio onChange={() => this.clickHandler(option)}
                                         checked={this.state.selectedValue === option} color="primary"/>}
                         label={label}
-                        // labelPlacement="bottom"
+                        labelPlacement="bottom"
+                        className={styles.radio}
                     />)
                 })}
             </RadioGroup>

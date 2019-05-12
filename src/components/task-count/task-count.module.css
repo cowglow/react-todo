@@ -1,8 +1,5 @@
 .root {
-    /*border: thin solid red;*/
-}
-
-.badge {
-    /*border: thin solid red;*/
-    margin: 0.6em;
+    /*border: thin solid blue;*/
+    display: flex;
+    justify-content: space-around;
 }

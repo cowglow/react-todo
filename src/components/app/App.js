@@ -13,7 +13,6 @@ import TaskToggle from "../task-toggle/task-toggle";
 // TODO: How does this get imported as a module
 const styles = theme => ({
     root: {
-        flexGrow: 1,
         width: '100%'
     },
     header: {
@@ -29,6 +28,8 @@ const styles = theme => ({
     },
     controls: {
         border: 'thin solid green',
+        display: 'flex',
+        justifyContent: 'space-around'
     },
     stickyFooter: {
         backgroundColor: 'white',
@@ -63,6 +64,8 @@ class App extends React.Component {
             tasksCompleted: repoData.filter(task => task.isChecked === true).length,
             taskListFilter: null
         };
+
+        this.toggleTaskFilter = this.toggleTaskFilter.bind(this);
     }
 
     /* Create new task */

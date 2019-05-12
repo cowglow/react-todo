@@ -11,9 +11,9 @@ class TaskCount extends React.Component {
         return (
             <div className={styles.root} aria-label="List count">
                 {count ? (
-                    <Chip avatar={<Avatar>{count}</Avatar>} color="primary" label="things to do." className={styles.badge}/>
+                    <Chip avatar={<Avatar>{count}</Avatar>} color="primary" label="things to do."/>
                 ) : (
-                    <Chip label={"Nothing to do"} color="primary" variant="outlined" className={styles.badge}/>
+                    <Chip label={"Nothing to do"} color="primary" variant="outlined"/>
                 )}
             </div>
         )
