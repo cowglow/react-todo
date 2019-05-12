@@ -53,7 +53,7 @@ const styles = theme => ({
 
 class App extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
 
         const repoData = [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}];
@@ -87,9 +87,8 @@ class App extends React.Component {
         const {taskCollection} = this.state;
         const sanitizedTaskCollection = taskCollection.filter((task) => !task.isChecked);
 
-        this.setState({
-            taskCollection: sanitizedTaskCollection,
-        });
+        // ** Let updateTask take care of the state change
+        this.updateTasks(sanitizedTaskCollection)
     };
 
     /* Toggle task filter */
