@@ -74,7 +74,7 @@ class App extends React.Component {
 
     /* Create new task */
     createNewTask = (taskObject) => {
-        const {taskCollection} = this.state;
+        const {taskCollection, tasksCompleted} = this.state;
         let taskCollectionCopy = taskCollection;
 
         // Add new task
@@ -82,7 +82,8 @@ class App extends React.Component {
 
         // Update state
         this.setState({
-            taskCollection: taskCollectionCopy
+            taskCollection: taskCollectionCopy,
+            tasksCompleted: tasksCompleted + 1
         });
     };
 
@@ -90,12 +91,11 @@ class App extends React.Component {
     clearCompleted() {
         const {taskCollection} = this.state;
 
-        console.log('taskCollection', JSON.stringify(taskCollection, null, '\t'));
         const sanitizedTaskCollection = taskCollection.filter((task) => !task.isChecked);
 
         this.setState({
             taskCollection: sanitizedTaskCollection,
-            tasksCompleted: taskCollection.length - sanitizedTaskCollection.length
+            tasksCompleted: sanitizedTaskCollection.length
         });
     };
 
@@ -105,16 +105,14 @@ class App extends React.Component {
             const {taskCollection} = this.state;
 
             taskCollection.forEach((task, index, collection) => {
-
                 if (taskDiff.key === task.key) {
                     collection[index] = taskDiff;
                 }
             });
 
-
             this.setState({
                 taskCollection: taskCollection,
-                tasksCompleted: Math.max(0,taskCollection.filter(task => task.isChecked === true).length)
+                tasksCompleted: taskCollection.filter(task => !task.isChecked).length
             });
         }
     };
@@ -162,8 +160,8 @@ class App extends React.Component {
 
                 {/* Controls */}
                 <div className={classes.controls}>
-                    <TaskCount count={taskCollection.length - tasksCompleted}/>
-                    {/*<TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>*/}
+                    <TaskCount count={tasksCompleted}/>
+                    <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
                     <Button variant="raised" color="primary" onClick={() => this.clearCompleted()}>Clear
                         completed</Button>
                 </div>

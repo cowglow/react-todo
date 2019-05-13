@@ -14,15 +14,22 @@ storiesOf('Components|TaskElement', module)
             const {task} = store.state;
 
             const clickHandler = (taskDiff) => {
-                store.set({
-                    task: {
-                        key: taskDiff.key,
-                        label: 'Task Element Triggered Event',
-                        isChecked: eval(taskDiff.isChecked)
-                    }
-                });
+                if (taskDiff) {
+                    // TODO: Figure out why the Checkbox isn't changing
+                    // console.log('store:', store.state.task.isChecked);
+                    // console.log('diff:', taskDiff.isChecked);
+                    store.set({
+                        task: {
+                            key: taskDiff.key,
+                            label: 'Task Element Triggered Event',
+                            isChecked: taskDiff.isChecked
+                        }
+                    });
+
+                }
             };
 
-            return (<TaskElement index={task.key} label={task.label} checked={task.isChecked} callback={clickHandler}/>)
+            return (<TaskElement key={1} index={task.key} label={task.label} checked={task.isChecked}
+                                 callback={clickHandler}/>)
         }
     ));
