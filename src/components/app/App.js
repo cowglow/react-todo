@@ -89,6 +89,8 @@ class App extends React.Component {
     /* Clear completed tasks */
     clearCompleted() {
         const {taskCollection} = this.state;
+
+        console.log('taskCollection', JSON.stringify(taskCollection, null, '\t'));
         const sanitizedTaskCollection = taskCollection.filter((task) => !task.isChecked);
 
         this.setState({
@@ -103,15 +105,16 @@ class App extends React.Component {
             const {taskCollection} = this.state;
 
             taskCollection.forEach((task, index, collection) => {
+
                 if (taskDiff.key === task.key) {
                     collection[index] = taskDiff;
                 }
             });
 
+
             this.setState({
                 taskCollection: taskCollection,
-                // TODO: Fix issues with taskCompleted count. The count is wrong when the toggle is not `all`
-                tasksCompleted: taskCollection.filter(task => task.isChecked === true).length
+                tasksCompleted: Math.max(0,taskCollection.filter(task => task.isChecked === true).length)
             });
         }
     };

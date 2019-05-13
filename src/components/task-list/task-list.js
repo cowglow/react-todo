@@ -13,7 +13,6 @@ class TaskList extends React.Component {
             callback(task);
         };
 
-        console.log(todos);
         return (
             <List>
                 {todos.map((task, index) => {
