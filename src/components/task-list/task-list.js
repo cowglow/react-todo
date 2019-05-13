@@ -7,28 +7,18 @@ class TaskList extends React.Component {
 
 
     render() {
-        const {callback, todos, filter} = this.props;
+        const {callback, todos} = this.props;
 
-        let listItems = todos;
-
-        if (filter === 'completed') {
-            listItems = todos.filter(todo => todo.isChecked === true)
-        }
-
-        if (filter === 'active') {
-            listItems = todos.filter(todo => todo.isChecked === false)
-        }
-
-        const callbackHandler = (task, index) => {
-            todos[index] = task;
-            callback(todos);
+        const callbackHandler = (task) => {
+            callback(task);
         };
 
+        console.log(todos);
         return (
             <List>
-                {listItems.map((task, index) => {
+                {todos.map((task, index) => {
                     return (
-                        <TaskElement key={index} index={index} label={task.label} isChecked={task.isChecked}
+                        <TaskElement key={index} index={task.key} label={task.label} isChecked={task.isChecked}
                                      callback={callbackHandler}/>
                     )
                 })}

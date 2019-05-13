@@ -54,10 +54,13 @@ const styles = theme => ({
 
 class App extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-        const repoData = [{label: 'eat cake', isChecked: false}, {label: 'drink a shake', isChecked: true}];
+        const repoData = [
+            {key: 1, label: 'eat cake', isChecked: false},
+            {key: 231, label: 'drink a shake', isChecked: true}
+        ];
 
         this.state = {
             taskCollection: repoData,
@@ -66,18 +69,16 @@ class App extends React.Component {
         };
 
         this.toggleTaskFilter = this.toggleTaskFilter.bind(this);
+        this.clearCompleted = this.clearCompleted.bind(this);
     }
 
     /* Create new task */
-    createNewTask = (taskLabel) => {
+    createNewTask = (taskObject) => {
         const {taskCollection} = this.state;
         let taskCollectionCopy = taskCollection;
 
         // Add new task
-        taskCollectionCopy.push({
-            label: taskLabel,
-            isChecked: false
-        });
+        taskCollectionCopy.push(taskObject);
 
         // Update state
         this.setState({
@@ -90,9 +91,31 @@ class App extends React.Component {
         const {taskCollection} = this.state;
         const sanitizedTaskCollection = taskCollection.filter((task) => !task.isChecked);
 
-        // ** Let updateTask take care of the state change
-        this.updateTasks(sanitizedTaskCollection)
+        this.setState({
+            taskCollection: sanitizedTaskCollection,
+            tasksCompleted: taskCollection.length - sanitizedTaskCollection.length
+        });
     };
+
+    /* Update task collection */
+    updateTasks = (taskDiff) => {
+        if (taskDiff) {
+            const {taskCollection} = this.state;
+
+            taskCollection.forEach((task, index, collection) => {
+                if (taskDiff.key === task.key) {
+                    collection[index] = taskDiff;
+                }
+            });
+
+            this.setState({
+                taskCollection: taskCollection,
+                // TODO: Fix issues with taskCompleted count. The count is wrong when the toggle is not `all`
+                tasksCompleted: taskCollection.filter(task => task.isChecked === true).length
+            });
+        }
+    };
+
 
     /* Toggle task filter */
     toggleTaskFilter(filterValue) {
@@ -101,19 +124,19 @@ class App extends React.Component {
         });
     };
 
-    /* Update task collection */
-    updateTasks = (newTaskList) => {
-        if (newTaskList) {
-            this.setState({
-                taskCollection: newTaskList,
-                tasksCompleted: newTaskList.filter(task => task.isChecked === true).length
-            });
-        }
-    };
-
     render() {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted, taskListFilter} = this.state;
+
+        let filteredTaskCollection = taskCollection;
+
+        if (taskListFilter === 'completed') {
+            filteredTaskCollection = taskCollection.filter(todo => todo.isChecked === true)
+        }
+
+        if (taskListFilter === 'active') {
+            filteredTaskCollection = taskCollection.filter(todo => todo.isChecked === false)
+        }
 
         return (
             <div className={classes.root}>
@@ -132,14 +155,15 @@ class App extends React.Component {
                 {/* MAIN */}
                 <main className={classes.main}>
                     <TaskMaker label="TaskMaker Label" callback={this.createNewTask}/>
-                    <TaskList todos={taskCollection} callback={this.updateTasks} filter={taskListFilter}/>
+                    <TaskList todos={filteredTaskCollection} callback={this.updateTasks}/>
                 </main>
 
                 {/* Controls */}
                 <div className={classes.controls}>
                     <TaskCount count={taskCollection.length - tasksCompleted}/>
                     <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
-                    <Button variant="raised" color="primary" onClick={() => this.clearCompleted()}>Clear completed</Button>
+                    <Button variant="raised" color="primary" onClick={() => this.clearCompleted()}>Clear
+                        completed</Button>
                 </div>
 
                 {/*FOOTER*/}

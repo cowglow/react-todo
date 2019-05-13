@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {Input, withStyles} from "@material-ui/core";
+import {Input} from "@material-ui/core";
 
 class TaskMaker extends React.Component {
 
@@ -46,7 +46,11 @@ class TaskMaker extends React.Component {
 
                 if (elementValue.length > 0) {
                     // Prep data
-                    const callbackArgs = elementValue;
+                    const callbackArgs = {
+                        label: elementValue,
+                        isChecked: false,
+                        key: new Date().getTime()
+                    };
 
                     // Reset
                     bindedElement.value = defaultValue;

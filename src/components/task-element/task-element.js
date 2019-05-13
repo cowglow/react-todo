@@ -13,6 +13,7 @@ class TaskElement extends React.Component {
     clickHandler() {
         const {index, callback} = this.props;
         callback({
+            key: this.props.index,
             label: this.props.label,
             isChecked: !this.props.isChecked
         }, index);
