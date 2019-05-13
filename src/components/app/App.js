@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Button, IconButton, Toolbar, Typography, withStyles} from "@material-ui/core";
+import {AppBar, Button, IconButton, SwipeableDrawer, Toolbar, Typography, withStyles} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
 
@@ -15,9 +15,15 @@ const styles = theme => ({
     root: {
         width: '100%'
     },
+    drawer: {
+        width: 250,
+        padding: '0.5em',
+        border: 'thin solid red',
+        height: '100%',
+    },
     header: {
         textAlign: 'left',
-        backgroundColor: theme.palette.primary.dark
+        backgroundColor: theme.palette.primary.dark,
     },
     menuButton: {
         marginLeft: -12,
@@ -29,7 +35,7 @@ const styles = theme => ({
     controls: {
         // border: 'thin solid green',
         display: 'flex',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     },
     stickyFooter: {
         backgroundColor: 'white',
@@ -45,7 +51,7 @@ const styles = theme => ({
         right: '0',
     },
     icon: {
-        width: '3em'
+        width: '3em',
     },
     btnClearCompleted: {
         // border: 'thin solid green',
@@ -65,11 +71,13 @@ class App extends React.Component {
         this.state = {
             taskCollection: repoData,
             tasksCompleted: repoData.filter(task => task.isChecked === true).length,
-            taskListFilter: null
+            taskListFilter: null,
+            drawerState: false
         };
 
         this.toggleTaskFilter = this.toggleTaskFilter.bind(this);
         this.clearCompleted = this.clearCompleted.bind(this);
+        this.toggleToolbar = this.toggleToolbar.bind(this);
     }
 
     /* Create new task */
@@ -124,9 +132,17 @@ class App extends React.Component {
         });
     };
 
+
+    /* Toggle tool bar */
+    toggleToolbar = (isOpen) => () => {
+        this.setState({
+            drawerState: isOpen
+        })
+    };
+
     render() {
         const {classes} = this.props;
-        const {taskCollection, tasksCompleted, taskListFilter} = this.state;
+        const {taskCollection, tasksCompleted, taskListFilter, drawerState} = this.state;
 
         let filteredTaskCollection = taskCollection;
 
@@ -143,13 +159,31 @@ class App extends React.Component {
                 {/* HEADER */}
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                            <MenuIcon/>
-                        </IconButton>
+                        <label htmlFor="toolbarButton" onClick={this.toggleToolbar(!drawerState)}>
+                            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                                <MenuIcon/>
+                            </IconButton>
+                        </label>
                         {/*TODO: Change position to right*/}
                         <Typography variant="h6" color="inherit">cowglow/react-todo</Typography>
                         <img src={logo} className={classes.icon} alt="logo"/>
                     </Toolbar>
+                    <SwipeableDrawer
+                        onClose={this.toggleToolbar(false)}
+                        onOpen={this.toggleToolbar(true)}
+                        open={this.state.drawerState}
+                    >
+                        <div
+                            tabIndex={0}
+                            role="button"
+                            onClick={this.toggleToolbar(false)}
+                            onKeyDown={this.toggleToolbar(false)}
+                            className={classes.drawer}
+                        >
+                            <Typography variant={"h4"}>Filter Task List</Typography>
+                            <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
+                        </div>
+                    </SwipeableDrawer>
                 </AppBar>
 
                 {/* MAIN */}
@@ -161,7 +195,6 @@ class App extends React.Component {
                 {/* Controls */}
                 <div className={classes.controls}>
                     <TaskCount count={tasksCompleted}/>
-                    <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
                     <Button variant="raised" color="primary" onClick={() => this.clearCompleted()}>Clear
                         completed</Button>
                 </div>

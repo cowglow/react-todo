@@ -34,7 +34,7 @@ class TaskToggle extends React.Component {
                 aria-label="toggle control"
                 name="toggleControl"
                 value={selectedValue}
-                row
+                // row
             >
                 {options.map((option, index) => {
                     const label = option.toUpperCase();
@@ -44,7 +44,7 @@ class TaskToggle extends React.Component {
                         control={<Radio onChange={() => this.clickHandler(option)}
                                         checked={this.state.selectedValue === option} color="primary"/>}
                         label={label}
-                        labelPlacement="bottom"
+                        labelPlacement="right"
                     />)
                 })}
             </RadioGroup>

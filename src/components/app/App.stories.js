@@ -3,6 +3,12 @@ import {storiesOf} from "@storybook/react";
 import App from './App';
 
 storiesOf('WebApp|ReactTodo', module)
+    .addParameters({
+        options: {
+            showPanel: false
+
+        }
+    })
     .add('default', () => {
         return (<App/>)
     });
