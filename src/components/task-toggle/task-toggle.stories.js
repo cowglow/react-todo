@@ -11,5 +11,8 @@ storiesOf('Components|TaskToggle', module)
         }
     })
     .add('default', () => {
-        return (<TaskToggle options={'all|active|complete'} callback={action('Toggle', {})}/>)
+        return (<TaskToggle options={['all', 'active', 'completed']} callback={action('Toggle',)}/>)
+    })
+    .add('binary filter', () => {
+        return (<TaskToggle options={['on','off']} callback={action('Toggle')} />)
     });

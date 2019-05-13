@@ -11,5 +11,5 @@ storiesOf('Components|TaskMaker', module)
         }
     })
     .add('default', () => {
-        return (<TaskMaker label="Task Maker Label" callback={action('New Task', )}/>)
+        return (<TaskMaker label="Task Maker Label" callback={action('Task', )}/>)
     });
