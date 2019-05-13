@@ -119,7 +119,6 @@ class App extends React.Component {
         }
     };
 
-
     /* Toggle task filter */
     toggleTaskFilter(filterValue) {
         this.setState({
@@ -164,15 +163,15 @@ class App extends React.Component {
                 {/* Controls */}
                 <div className={classes.controls}>
                     <TaskCount count={taskCollection.length - tasksCompleted}/>
-                    <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
+                    {/*<TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>*/}
                     <Button variant="raised" color="primary" onClick={() => this.clearCompleted()}>Clear
                         completed</Button>
                 </div>
 
                 {/*FOOTER*/}
-                <footer className={classes.stickyFooter}>
-                    <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>
-                </footer>
+                {/*<footer className={classes.stickyFooter}>*/}
+                {/*    <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>*/}
+                {/*</footer>*/}
             </div>
         );
     }

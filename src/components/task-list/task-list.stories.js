@@ -1,6 +1,5 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {action} from "@storybook/addon-actions";
 import {withState} from "@dump247/storybook-state";
 
 import TaskList from "./task-list";
@@ -23,11 +22,21 @@ storiesOf('Components|TaskList', module)
         ({store}) => {
             let {todos} = store.state;
 
-            const callbackHandler = (newTodos) => {
-                action('toggle');
-                store.set({
-                    todos: newTodos
-                })
+            const callbackHandler = (taskDiff) => {
+                if (taskDiff) {
+                    const {todos} = store.state;
+
+                    todos.forEach((task, index, collection) => {
+                        if (taskDiff.key === task.key) {
+                            collection[index] = taskDiff;
+                        }
+                    });
+
+                    store.set({
+                        taskCollection: todos,
+                        tasksCompleted: Math.max(0,todos.filter(task => task.isChecked === true).length)
+                    });
+                }
             };
 
             return (<TaskList todos={todos} callback={callbackHandler}/>)
