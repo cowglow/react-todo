@@ -1,5 +1,5 @@
 import React from 'react';
-import {RadioGroup, FormControlLabel, Radio} from "@material-ui/core";
+import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 
 class TaskToggle extends React.Component {
 
@@ -8,10 +8,10 @@ class TaskToggle extends React.Component {
     };
 
     componentWillMount() {
-        const {options} = this.props;
+        const {options, initVal} = this.props;
 
         this.setState({
-            selectedValue: options[0]
+            selectedValue: (initVal) ? initVal : options[0]
         });
     }
 

@@ -181,7 +181,8 @@ class App extends React.Component {
                             className={classes.drawer}
                         >
                             <Typography variant={"h4"}>Filter Task List</Typography>
-                            <TaskToggle options={['all', 'active', 'completed']} callback={this.toggleTaskFilter}/>
+                            <TaskToggle options={['all', 'active', 'completed']} initVal={this.state.taskListFilter}
+                                        callback={this.toggleTaskFilter}/>
                             <div className={classes.stickyFooter}>
                                 <Typography variant="overline">Made with <br/> ReactJS &amp; Material-UI</Typography>
                             </div>
