@@ -35,7 +35,7 @@ const styles = theme => ({
     controls: {
         // border: 'thin solid green',
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
     },
     stickyFooter: {
         backgroundColor: 'white',
