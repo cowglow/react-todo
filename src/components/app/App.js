@@ -63,18 +63,24 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        const repoData = [
-            {key: 1, label: 'eat cake', isChecked: false},
-            {key: 231, label: 'drink a shake', isChecked: true}
-        ];
+        // App data store
+        let store = [];
 
+        // Part of the offline strategies
+        if (localStorage) {
+            const storage = localStorage.getItem('todos');
+            store = JSON.parse(storage);
+        }
+
+        // Initial state object
         this.state = {
-            taskCollection: repoData,
-            tasksCompleted: repoData.filter(task => task.isChecked === true).length,
+            taskCollection: store,
+            tasksCompleted: store.filter(task => task.isChecked === true).length,
             taskListFilter: null,
             drawerState: false
         };
 
+        // Event bindings
         this.toggleTaskFilter = this.toggleTaskFilter.bind(this);
         this.clearCompleted = this.clearCompleted.bind(this);
         this.toggleToolbar = this.toggleToolbar.bind(this);
@@ -99,8 +105,10 @@ class App extends React.Component {
     clearCompleted() {
         const {taskCollection} = this.state;
 
+        // Apply filter
         const sanitizedTaskCollection = taskCollection.filter((task) => !task.isChecked);
 
+        // Update state
         this.setState({
             taskCollection: sanitizedTaskCollection,
             tasksCompleted: sanitizedTaskCollection.length
@@ -112,12 +120,14 @@ class App extends React.Component {
         if (taskDiff) {
             const {taskCollection} = this.state;
 
+            // Apply changes
             taskCollection.forEach((task, index, collection) => {
                 if (taskDiff.key === task.key) {
                     collection[index] = taskDiff;
                 }
             });
 
+            // Update state
             this.setState({
                 taskCollection: taskCollection,
                 tasksCompleted: taskCollection.filter(task => !task.isChecked).length
@@ -127,6 +137,7 @@ class App extends React.Component {
 
     /* Toggle task filter */
     toggleTaskFilter(filterValue) {
+        // Update state
         this.setState({
             taskListFilter: filterValue
         });
@@ -135,15 +146,33 @@ class App extends React.Component {
 
     /* Toggle tool bar */
     toggleToolbar = (isOpen) => () => {
+        // Update state
         this.setState({
             drawerState: isOpen
         })
     };
 
+
+    /*                  */
+    /* Offline Strategy */
+    /*                  */
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        const {taskCollection} = nextState;
+
+        // Save to local storage
+        if (localStorage) {
+            localStorage.setItem('todos', JSON.stringify(taskCollection));
+        }
+
+        return true;
+    }
+
     render() {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted, taskListFilter, drawerState} = this.state;
 
+        // TODO: Good candidate for refactoring
+        /* Refactor START */
         let filteredTaskCollection = taskCollection;
 
         if (taskListFilter === 'completed') {
@@ -153,6 +182,7 @@ class App extends React.Component {
         if (taskListFilter === 'active') {
             filteredTaskCollection = taskCollection.filter(todo => todo.isChecked === false)
         }
+        /* END */
 
         return (
             <div className={classes.root}>
@@ -199,14 +229,14 @@ class App extends React.Component {
                 {/* Controls */}
                 <div className={classes.controls}>
                     <TaskCount count={tasksCompleted}/>
-                    <Button variant="raised" color="primary" onClick={() => this.clearCompleted()}>Clear
+                    <Button variant="contained" color="primary" onClick={() => this.clearCompleted()}>Clear
                         completed</Button>
                 </div>
 
                 {/*FOOTER*/}
-                {/*<footer className={classes.stickyFooter}>*/}
-                {/*    <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>*/}
-                {/*</footer>*/}
+                <footer className={classes.stickyFooter}>
+                    <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>
+                </footer>
             </div>
         );
     }
