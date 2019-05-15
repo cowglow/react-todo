@@ -13,9 +13,13 @@ class TaskList extends React.Component {
             callback(task);
         };
 
+        let taskList = [];
+        if (todos) {
+            taskList = todos;
+        }
         return (
             <List>
-                {todos.map((task, index) => {
+                {taskList.map((task, index) => {
                     return (
                         <TaskElement key={index} index={task.key} label={task.label} isChecked={task.isChecked}
                                      callback={callbackHandler}/>

@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Button, IconButton, SwipeableDrawer, Toolbar, Typography, withStyles} from "@material-ui/core";
+import {
+    AppBar,
+    Button, Divider,
+    IconButton, Link,
+    SwipeableDrawer,
+    Toolbar,
+    Typography,
+    withStyles
+} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
 
@@ -18,7 +26,6 @@ const styles = theme => ({
     drawer: {
         width: 250,
         padding: '0.5em',
-        border: 'thin solid red',
         height: '100%',
     },
     header: {
@@ -42,7 +49,6 @@ const styles = theme => ({
         border: 'thin solid ' + theme.palette.primary.light,
         color: theme.palette.primary.main,
         position: 'fixed',
-        textAlign: 'center',
         padding: '0.5em',
         margin: '1rem',
         top: 'auto',
@@ -69,13 +75,16 @@ class App extends React.Component {
         // Part of the offline strategies
         if (localStorage) {
             const storage = localStorage.getItem('todos');
-            store = JSON.parse(storage);
+            if (storage){
+                store = JSON.parse(storage);
+            }
         }
 
         // Initial state object
+        let completedCount = (store) ? store.filter(task => !task.isChecked).length : 0;
         this.state = {
             taskCollection: store,
-            tasksCompleted: store.filter(task => task.isChecked === true).length,
+            tasksCompleted: completedCount,
             taskListFilter: null,
             drawerState: false
         };
@@ -88,17 +97,22 @@ class App extends React.Component {
 
     /* Create new task */
     createNewTask = (taskObject) => {
+        let taskCollectionCopy = [];
         const {taskCollection, tasksCompleted} = this.state;
-        let taskCollectionCopy = taskCollection;
 
-        // Add new task
-        taskCollectionCopy.push(taskObject);
+        if (taskObject) {
+            taskCollectionCopy = taskCollection;
 
-        // Update state
-        this.setState({
-            taskCollection: taskCollectionCopy,
-            tasksCompleted: tasksCompleted + 1
-        });
+            // Add new task
+            taskCollectionCopy.push(taskObject);
+
+            // Update state
+            this.setState({
+                taskCollection: taskCollectionCopy,
+                tasksCompleted: tasksCompleted + 1
+            });
+
+        }
     };
 
     /* Clear completed tasks */
@@ -153,9 +167,9 @@ class App extends React.Component {
     };
 
 
-    /*                  */
-    /* Offline Strategy */
-    /*                  */
+    /* * * * * * * * * * * * * * * * * * * */
+    /* Offline Strategy                    */
+    /* * * * * * * * * * * * * * * * * * * */
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         const {taskCollection} = nextState;
 
@@ -210,11 +224,21 @@ class App extends React.Component {
                             onKeyDown={this.toggleToolbar(false)}
                             className={classes.drawer}
                         >
-                            <Typography variant={"h4"}>Filter Task List</Typography>
+                            <Typography variant="h6">Todos Filter</Typography>
+                            <Divider/>
                             <TaskToggle options={['all', 'active', 'completed']} initVal={this.state.taskListFilter}
                                         callback={this.toggleTaskFilter}/>
                             <div className={classes.stickyFooter}>
-                                <Typography variant="overline">Made with <br/> ReactJS &amp; Material-UI</Typography>
+                                <Typography variant="subtitle2">Made with <br/>
+                                    <Link href="https://reactjs.org/tutorial/tutorial.html"
+                                          target="_blank"
+                                          aria-label="ReactJS Tutorial Link">ReactJS</Link> &amp; <Link
+                                        href="http://material-ui.com" target="_blank"
+                                        aria-label="Material-UI for React">Material-UI</Link>
+                                    <br/>
+                                    <Link href="https://github.com/cowglow/react-todo" target="_blank"
+                                          aria-label="View the source code on GitHub">GitHub Repo.</Link>
+                                </Typography>
                             </div>
                         </div>
                     </SwipeableDrawer>
@@ -232,11 +256,6 @@ class App extends React.Component {
                     <Button variant="contained" color="primary" onClick={() => this.clearCompleted()}>Clear
                         completed</Button>
                 </div>
-
-                {/*FOOTER*/}
-                <footer className={classes.stickyFooter}>
-                    <Typography variant="overline">Made with ReactJS and Material-UI.</Typography>
-                </footer>
             </div>
         );
     }
