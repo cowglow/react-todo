@@ -43,27 +43,13 @@ const App = (props) => {
     const [taskListFilter, setTaskListFilter] = useState(null);
     const [drawerState, setDrawerState] = useState(false);
 
-
-    // Event bindings
-    // this.toggleTaskFilter = this.toggleTaskFilter.bind(this);
-    // this.clearCompleted = this.clearCompleted.bind(this);
-    // this.toggleToolbar = this.toggleToolbar.bind(this);
-
     /* Create new task */
     const createNewTask = (taskObject) => {
-        let taskCollectionCopy = [];
+        const taskCollectionCopy = [...taskCollection, taskObject];
 
-        if (taskObject) {
-            // TODO: shallow copy
-            taskCollectionCopy = taskCollection;
-
-            // Add new task
-            taskCollectionCopy.push(taskObject);
-
-            // Update state
-            setTaskCollection(taskCollectionCopy);
-            setTasksCompleted(tasksCompleted + 1);
-        }
+        // Update state
+        setTaskCollection(taskCollectionCopy);
+        setTasksCompleted(tasksCompleted + 1);
 
         saveToLocalStorage(taskCollectionCopy)
     };
