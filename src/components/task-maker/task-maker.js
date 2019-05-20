@@ -68,7 +68,7 @@ class TaskMaker extends React.Component {
             <Input
                 id="task-text"
                 type="text"
-                style={{size: '3em', padding: '1rem'}}
+                style={{size: '3em', boxSizing: 'border-box', padding: '1rem'}}
                 placeholder={placeholderText}
                 inputProps={{'arial-label': label}}
                 onKeyDown={changeHandler}

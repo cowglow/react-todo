@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     AppBar,
-    Button, Divider,
-    IconButton, Link,
+    Button,
+    Divider,
+    IconButton,
+    Link,
     SwipeableDrawer,
     Toolbar,
     Typography,
@@ -13,56 +15,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import withRoot from '../../withRoot';
 
 import logo from '../../assets/images/logo.svg';
+import styles from './App.styles';
+
 import TaskMaker from "../task-maker/task-maker";
 import TaskList from "../task-list/task-list";
 import TaskCount from "../task-count/task-count";
 import TaskToggle from "../task-toggle/task-toggle";
-
-// TODO: How does this get imported as a module
-const styles = theme => ({
-    root: {
-        width: '100%'
-    },
-    drawer: {
-        width: 250,
-        padding: '0.5em',
-        height: '100%',
-    },
-    header: {
-        textAlign: 'left',
-        backgroundColor: theme.palette.primary.dark,
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-    },
-    main: {
-        flex: '1 0 auto',
-    },
-    controls: {
-        // border: 'thin solid green',
-        display: 'flex',
-        justifyContent: 'center',
-    },
-    stickyFooter: {
-        backgroundColor: 'white',
-        border: 'thin solid ' + theme.palette.primary.light,
-        color: theme.palette.primary.main,
-        position: 'fixed',
-        padding: '0.5em',
-        margin: '1rem',
-        top: 'auto',
-        left: '0',
-        bottom: '0',
-        right: '0',
-    },
-    icon: {
-        width: '3em',
-    },
-    btnClearCompleted: {
-        // border: 'thin solid green',
-    }
-});
 
 class App extends React.Component {
 
@@ -181,6 +139,9 @@ class App extends React.Component {
         return true;
     }
 
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    // }
+
     render() {
         const {classes} = this.props;
         const {taskCollection, tasksCompleted, taskListFilter, drawerState} = this.state;
@@ -226,8 +187,11 @@ class App extends React.Component {
                         >
                             <Typography variant="h6">Todos Filter</Typography>
                             <Divider/>
+
+                            {/*Task Toggle*/}
                             <TaskToggle options={['all', 'active', 'completed']} initVal={this.state.taskListFilter}
                                         callback={this.toggleTaskFilter}/>
+
                             <div className={classes.stickyFooter}>
                                 <Typography variant="subtitle2">Made with <br/>
                                     <Link href="https://reactjs.org/tutorial/tutorial.html"
