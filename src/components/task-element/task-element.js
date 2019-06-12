@@ -3,15 +3,9 @@ import {Checkbox, ListItem, ListItemText} from "@material-ui/core";
 
 import styles from './task-element.module.css';
 
-class TaskElement extends React.Component {
+const TaskElement = ({index, label, isChecked, callback}) => {
 
-    state = {
-        label: '',
-        isChecked: false
-    };
-
-    clickHandler() {
-        const {index, label, isChecked, callback} = this.props;
+    const clickHandler = () => {
         callback({
             key: index,
             label: label,
@@ -19,17 +13,13 @@ class TaskElement extends React.Component {
         }, index);
     };
 
-    render() {
-        const {index, label, isChecked} = this.props;
-
-        return (
-            <ListItem dense button onClick={() => this.clickHandler()}>
-                <Checkbox id={'check' + index} checked={isChecked} inputProps={{'arial-label': label}}/>
-                <ListItemText primary={label}
-                              className={(isChecked ? styles.completedTask : styles.uncompletedTask)}/>
-            </ListItem>
-        );
-    }
-}
+    return (
+        <ListItem dense button onClick={clickHandler}>
+            <Checkbox id={'check' + index} checked={isChecked} inputProps={{'arial-label': label}}/>
+            <ListItemText primary={label}
+                          className={(isChecked ? styles.completedTask : styles.uncompletedTask)}/>
+        </ListItem>
+    );
+};
 
 export default TaskElement;

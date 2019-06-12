@@ -1,54 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
+import PropTypes from "prop-types";
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 
-class TaskToggle extends React.Component {
+const TaskToggle = ({options, initVal, callback}) => {
 
-    state = {
-        selectedValue: null
+    console.log('rendering task toggle', initVal);
+
+    const [selectedValue, setSelectedValue] = useState((initVal) ? initVal : options[0]);
+
+    const clickHandler = (newValue) => {
+        setSelectedValue(newValue);
+        callback(newValue);
     };
 
-    componentWillMount() {
-        const {options, initVal} = this.props;
+    return (
+        <RadioGroup
+            aria-label="toggle control"
+            name="toggleControl"
+            value={selectedValue}
+            // row
+        >
+            {options.map((option, index) => (
+                <FormControlLabel
+                    key={index}
+                    value={option}
+                    control={<Radio onChange={() => clickHandler(option)}
+                                    checked={selectedValue === option} color="primary"/>}
+                    label={option}
+                    labelPlacement="end"
+                />
+            ))}
+        </RadioGroup>
+    );
+};
 
-        this.setState({
-            selectedValue: (initVal) ? initVal : options[0]
-        });
-    }
-
-    clickHandler = (selectedValue) => {
-        const {callback} = this.props;
-
-        this.setState({
-            selectedValue: selectedValue,
-        });
-
-        callback(selectedValue);
-    };
-
-    render() {
-        const {options} = this.props;
-        const {selectedValue} = this.state;
-
-        return (
-            <RadioGroup
-                aria-label="toggle control"
-                name="toggleControl"
-                value={selectedValue}
-                // row
-            >
-                {options.map((option, index) => {
-                    return (<FormControlLabel
-                        key={index}
-                        value={option}
-                        control={<Radio onChange={() => this.clickHandler(option)}
-                                        checked={this.state.selectedValue === option} color="primary"/>}
-                        label={option}
-                        labelPlacement="end"
-                    />)
-                })}
-            </RadioGroup>
-        );
-    }
-}
+TaskToggle.propTypes = {
+    callback: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+    initVal: PropTypes.string
+};
 
 export default TaskToggle;
