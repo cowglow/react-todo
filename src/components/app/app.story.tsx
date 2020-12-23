@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from "@storybook/react";
-import App from './App';
+import App from './app';
 
 storiesOf('WebApp|ReactTodo', module)
     .addParameters({
