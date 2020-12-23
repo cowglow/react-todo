@@ -44,39 +44,57 @@ export const TasksContextProvider: React.FC<TasksContextProviderProps> = ({
     defaultValue: [],
   });
 
-  const [tasks, setTasks] = React.useState(storage);
+  const [tasks, setTasks] = React.useReducer(
+      (state: any, action: { type: string; payload: any }) => {
+        switch (action.type) {
+          case "ADD_TASK":
+            return [...state, action.payload];
+          case "UPDATE_TASK":
+            return state.map(
+                (currentTask: Task) =>
+                    [action.payload].find((task) => task.key === currentTask.key) ||
+                    currentTask
+            );
+          case "CLEAR_COMPLETED":
+            return state.filter((task: Task) => !task.isChecked);
+          default:
+            return state;
+        }
+      },
+      storage
+  );
 
   const completed = tasks.filter((task: Task) => !task.isChecked).length;
 
   const createTask = (newTask: Partial<Task>) => {
-    let mutation = tasks;
-    const task = {
-      ...newTask,
-      key: new Date().getTime(),
-    };
-
-    mutation.push(task);
-
-    // setTasks(mutation);
-    setStorage(mutation);
+    setTasks({
+      type: "ADD_TASK",
+      payload: {
+        ...newTask,
+        key: new Date().getTime(),
+      },
+    });
   };
 
   const updateTask = (taskDiff: Task) => {
     if (taskDiff) {
-      const mutation = tasks.map(
-          (currentTask: Task) =>
-              [taskDiff].find((task) => task.key === currentTask.key) || currentTask
-      );
-      setTasks(mutation);
-      setStorage(mutation);
+      setTasks({
+        type: "UPDATE_TASK",
+        payload: taskDiff,
+      });
     }
   };
 
   const clearCompleted = () => {
-    const mutation = tasks.filter((task: Task) => !task.isChecked);
-    setTasks(mutation);
-    setStorage(mutation);
+    setTasks({
+      type: "CLEAR_COMPLETED",
+      payload: null,
+    });
   };
+
+  React.useEffect(() => {
+    setStorage(tasks);
+  }, [setStorage, tasks]);
 
   return (
       <TasksContext.Provider
