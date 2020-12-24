@@ -10,6 +10,7 @@ interface TasksContextProps {
 interface TasksContextApi extends TasksContextProps {
   createTask: (task: Partial<Task>) => void;
   updateTask: (taskDiff: Task) => void;
+  setFilter: (filter: TaskFilter) => void;
   clearCompleted: () => void;
 }
 
@@ -20,6 +21,9 @@ const defaultValues: TasksContextApi = {
     throw Error("createTask: UninitializedErrorMessage");
   },
   updateTask: () => {
+    throw Error("updateTask: UninitializedErrorMessage");
+  },
+  setFilter: () => {
     throw Error("updateTask: UninitializedErrorMessage");
   },
   clearCompleted: () => {
@@ -66,6 +70,19 @@ export const TasksContextProvider: React.FC<TasksContextProviderProps> = ({
 
   const completed = tasks.filter((task: Task) => !task.isChecked).length;
 
+  const [filter, setFilter] = React.useState("all");
+
+  const filteredTasks = () => {
+    switch (filter) {
+      case "all":
+        return tasks;
+      case "completed":
+        return tasks.filter((todo: Task) => todo.isChecked);
+      case "active":
+        return tasks.filter((todo: Task) => !todo.isChecked);
+    }
+  };
+
   const createTask = (newTask: Partial<Task>) => {
     setTasks({
       type: "ADD_TASK",
@@ -98,7 +115,14 @@ export const TasksContextProvider: React.FC<TasksContextProviderProps> = ({
 
   return (
       <TasksContext.Provider
-          value={{tasks, completed, createTask, updateTask, clearCompleted}}
+          value={{
+            tasks: filteredTasks(),
+            completed,
+            createTask,
+            updateTask,
+            setFilter,
+            clearCompleted,
+          }}
       >
         {children}
       </TasksContext.Provider>

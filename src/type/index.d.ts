@@ -9,3 +9,5 @@ type Task = {
 /** Application **/
 
 type DrawerState = boolean;
+
+type TaskFilter = "all" | "active" | "completed";

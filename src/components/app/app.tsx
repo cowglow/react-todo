@@ -6,7 +6,7 @@ import TaskMaker from "../task-maker/task-maker";
 import TaskList from "../task-list/task-list";
 import TaskCount from "../task-count/task-count";
 import {useTasks} from "../../context/tasks-context/tasks-context";
-import Header from "../layout/header/header";
+import Header from "../app-header/app-header";
 
 interface AppProps {
     classes: any;
@@ -14,23 +14,6 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({classes}) => {
     const {tasks, completed, createTask, clearCompleted} = useTasks();
-
-    // TODO: Good candidate for refactoring
-    /* Refactor START */
-    // let filteredTaskCollection = taskCollection;
-
-    // if (taskListFilter === "completed") {
-    //   filteredTaskCollection = taskCollection.filter(
-    //     (todo) => todo.isChecked === true
-    //   );
-    // }
-
-    // if (taskListFilter === "active") {
-    //   filteredTaskCollection = taskCollection.filter(
-    //     (todo) => todo.isChecked === false
-    //   );
-    // }
-    /* END */
 
     return (
         <div className={classes.root}>
