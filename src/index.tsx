@@ -19,7 +19,4 @@ ReactDOM.render(
     document.getElementById("root")
 );
 
-/*TODO: Register service worker for offline data storage*/
-
-// serviceWorker.register();
-serviceWorker.unregister();
+serviceWorker.register();
