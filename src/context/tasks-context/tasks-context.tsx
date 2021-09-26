@@ -1,5 +1,5 @@
 import React from "react";
-import {useLocalStorage} from "../../hook/use-local-storage";
+import { useLocalStorage } from "../../hook/use-local-storage";
 
 /** Context **/
 interface TasksContextProps {
@@ -40,32 +40,32 @@ interface TasksContextProviderProps {
 }
 
 export const TasksContextProvider: React.FC<TasksContextProviderProps> = ({
-                                                                            children,
-                                                                            defaultValue,
-                                                                          }) => {
+  children,
+  defaultValue,
+}) => {
   const [storage, setStorage] = useLocalStorage({
     key: "todos",
     defaultValue: [],
   });
 
   const [tasks, setTasks] = React.useReducer(
-      (state: any, action: { type: string; payload: any }) => {
-        switch (action.type) {
-          case "ADD_TASK":
-            return [...state, action.payload];
-          case "UPDATE_TASK":
-            return state.map(
-                (currentTask: Task) =>
-                    [action.payload].find((task) => task.key === currentTask.key) ||
-                    currentTask
-            );
-          case "CLEAR_COMPLETED":
-            return state.filter((task: Task) => !task.isChecked);
-          default:
-            return state;
-        }
-      },
-      storage
+    (state: any, action: { type: string; payload: any }) => {
+      switch (action.type) {
+        case "ADD_TASK":
+          return [...state, action.payload];
+        case "UPDATE_TASK":
+          return state.map(
+            (currentTask: Task) =>
+              [action.payload].find((task) => task.key === currentTask.key) ||
+              currentTask
+          );
+        case "CLEAR_COMPLETED":
+          return state.filter((task: Task) => !task.isChecked);
+        default:
+          return state;
+      }
+    },
+    storage
   );
 
   const completed = tasks.filter((task: Task) => !task.isChecked).length;
@@ -114,18 +114,18 @@ export const TasksContextProvider: React.FC<TasksContextProviderProps> = ({
   }, [setStorage, tasks]);
 
   return (
-      <TasksContext.Provider
-          value={{
-            tasks: filteredTasks(),
-            completed,
-            createTask,
-            updateTask,
-            setFilter,
-            clearCompleted,
-          }}
-      >
-        {children}
-      </TasksContext.Provider>
+    <TasksContext.Provider
+      value={{
+        tasks: filteredTasks(),
+        completed,
+        createTask,
+        updateTask,
+        setFilter,
+        clearCompleted,
+      }}
+    >
+      {children}
+    </TasksContext.Provider>
   );
 };
 

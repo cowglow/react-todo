@@ -1,6 +1,6 @@
 import React from "react";
 import withStyles from "./task-maker.style";
-import {getRandomPlaceholderText} from "../../lib/get-random-placeholder-text/get-random-placeholder-text";
+import { getRandomPlaceholderText } from "../../lib/get-random-placeholder-text/get-random-placeholder-text";
 import TextField from "@material-ui/core/TextField";
 
 interface TaskMakerProps {
@@ -8,7 +8,7 @@ interface TaskMakerProps {
   createTask: any;
 }
 
-const TaskMaker: React.FC<TaskMakerProps> = ({classes, createTask}) => {
+const TaskMaker: React.FC<TaskMakerProps> = ({ classes, createTask }) => {
   const placeholderText = getRandomPlaceholderText();
   const [value, setValue] = React.useState<string>("");
 
@@ -29,17 +29,17 @@ const TaskMaker: React.FC<TaskMakerProps> = ({classes, createTask}) => {
   };
 
   return (
-      <TextField
-          id="task-maker"
-          variant="outlined"
-          value={value}
-          placeholder={placeholderText}
-          inputProps={{"arial-label": "task maker text field"}}
-          onKeyDown={keyDownHandler}
-          onChange={changeHandler}
-          className={classes.root}
-          fullWidth={true}
-      />
+    <TextField
+      id="task-maker"
+      variant="outlined"
+      value={value}
+      placeholder={placeholderText}
+      inputProps={{ "arial-label": "task maker text field" }}
+      onKeyDown={keyDownHandler}
+      onChange={changeHandler}
+      className={classes.root}
+      fullWidth={true}
+    />
   );
 };
 

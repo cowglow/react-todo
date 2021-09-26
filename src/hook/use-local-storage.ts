@@ -5,7 +5,7 @@ interface localStorageProps {
   defaultValue: boolean | string | object;
 }
 
-export const useLocalStorage = ({key, defaultValue}: localStorageProps) => {
+export const useLocalStorage = ({ key, defaultValue }: localStorageProps) => {
   const [value, setValue] = React.useState(() => {
     const storedValue = window.localStorage.getItem(key);
     return storedValue !== null ? JSON.parse(storedValue) : defaultValue;

@@ -6,20 +6,20 @@ interface TaskListProps {
   todos: Task[];
 }
 
-const TaskList: React.FC<TaskListProps> = ({todos}) => {
+const TaskList: React.FC<TaskListProps> = ({ todos }) => {
   return (
-      <List>
-        {todos.map((task, index) => (
-            <div key={task.key}>
-              <TaskElement
-                  index={index}
-                  taskKey={task.key}
-                  label={task.label}
-                  isChecked={task.isChecked}
-              />
-            </div>
-        ))}
-      </List>
+    <List>
+      {todos.map((task, index) => (
+        <div key={task.key}>
+          <TaskElement
+            index={index}
+            taskKey={task.key}
+            label={task.label}
+            isChecked={task.isChecked}
+          />
+        </div>
+      ))}
+    </List>
   );
 };
 

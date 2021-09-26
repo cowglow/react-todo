@@ -1,6 +1,6 @@
 import React from "react";
 import TaskMaker from "./task-maker";
-import {action} from "@storybook/addon-actions";
+import { action } from "@storybook/addon-actions";
 
 export default {
   name: "Components|TaskMaker",
@@ -8,5 +8,5 @@ export default {
 };
 
 export const TaskMakerStory = () => (
-    <TaskMaker createTask={action("create new task")}/>
+  <TaskMaker createTask={action("create new task")} />
 );

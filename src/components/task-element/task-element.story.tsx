@@ -15,11 +15,11 @@ export const TaskElementStory = () => {
   };
 
   return (
-      <TaskElement
-          index={1}
-          taskKey={task.key}
-          label={task.label}
-          isChecked={task.isChecked}
-      />
+    <TaskElement
+      index={1}
+      taskKey={task.key}
+      label={task.label}
+      isChecked={task.isChecked}
+    />
   );
 };
