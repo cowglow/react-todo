@@ -34,7 +34,7 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ onClose }) => {
           </ListItem>
         </List>
       </Box>
-      <NavigationFooter />
+      <NavigationFooter classes={{}} />
     </nav>
   );
 };

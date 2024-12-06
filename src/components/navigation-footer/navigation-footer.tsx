@@ -1,7 +1,6 @@
 import React from "react";
 import {Link, Typography} from "@mui/material";
 
-
 interface NavigationFooterProps {
   classes: any;
 }
