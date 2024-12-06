@@ -1,6 +1,5 @@
-import { createMuiTheme, ThemeOptions } from "@material-ui/core/styles/";
-import purple from "@material-ui/core/colors/purple";
-import green from "@material-ui/core/colors/green";
+import {createTheme, ThemeOptions} from "@mui/material";
+import {green, purple} from "@mui/material/colors";
 
 const theme: ThemeOptions = {
   palette: {
@@ -17,4 +16,4 @@ const theme: ThemeOptions = {
   },
 };
 
-export default createMuiTheme(theme);
+export default createTheme(theme);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, ListItem, ListItemText } from "@material-ui/core";
+import { Checkbox, ListItem, ListItemText } from "@mui/material";
 
 import { useTasks } from "../../context/tasks-context/tasks-context";
 
@@ -27,7 +27,7 @@ const TaskElement: React.FC<TaskElementProps> = ({
   };
 
   return (
-    <ListItem dense button onClick={clickHandler}>
+    <ListItem dense component="button" onClick={clickHandler}>
       <Checkbox
         id={"task-" + index + "-checkbox"}
         checked={isChecked}

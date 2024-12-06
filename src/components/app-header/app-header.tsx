@@ -1,13 +1,10 @@
 import React from "react";
-import withStyles from "./app-header.style";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Typography from "@material-ui/core/Typography";
-import logo from "../../assets/images/logo.svg";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import AppBar from "@material-ui/core/AppBar";
+
+// @ts-ignore
+// import logo from "../../assets/images/logo.svg"
 import AppNavigation from "../app-navigation/app-navigation";
+import {AppBar, IconButton, SwipeableDrawer, Toolbar, Typography} from "@mui/material";
+import {Menu as MenuIcon} from "@mui/icons-material";
 
 interface HeaderProps {
   classes: any;
@@ -47,7 +44,7 @@ const AppHeader: React.FC<HeaderProps> = ({ classes }) => {
           <Typography variant="h6" color="inherit">
             cowglow/react-todo
           </Typography>
-          <img src={logo} className={classes.icon} alt="logo" />
+          {/*<img src={logo} className={classes.icon} alt="logo" />*/}
         </Toolbar>
         <SwipeableDrawer
           open={state}
@@ -62,4 +59,4 @@ const AppHeader: React.FC<HeaderProps> = ({ classes }) => {
   );
 };
 
-export default withStyles(AppHeader);
+export default AppHeader;

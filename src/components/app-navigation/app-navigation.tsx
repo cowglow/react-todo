@@ -1,14 +1,8 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+import {Box, Divider, IconButton, List, ListItem, ListItemText, Typography} from "@mui/material";
 import NavigationFooter from "../navigation-footer/navigation-footer";
 import { useTasks } from "../../context/tasks-context/tasks-context";
+import {Close as CloseIcon} from "@mui/icons-material";
 
 interface AppNavigationProps {
   onClose: (drawerState: DrawerState) => (event: React.MouseEvent) => void;
@@ -29,13 +23,13 @@ const AppNavigation: React.FC<AppNavigationProps> = ({ onClose }) => {
         <Typography variant="h6">Filter</Typography>
         <Divider />
         <List>
-          <ListItem button onMouseDown={() => setFilter("all")}>
+          <ListItem component="button" onMouseDown={() => setFilter("all")}>
             <ListItemText primary="All" onClick={onClose(false)} />
           </ListItem>
-          <ListItem button onMouseDown={() => setFilter("active")}>
+          <ListItem component="button" onMouseDown={() => setFilter("active")}>
             <ListItemText primary="Active" onClick={onClose(false)} />
           </ListItem>
-          <ListItem button onMouseDown={() => setFilter("completed")}>
+          <ListItem component="button" onMouseDown={() => setFilter("completed")}>
             <ListItemText primary="Completed" onClick={onClose(false)} />
           </ListItem>
         </List>

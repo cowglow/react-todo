@@ -1,6 +1,6 @@
-import withStyles from "@material-ui/core/styles/withStyles";
+import {Theme, withStyles} from "@mui/material";
 
-export default withStyles((theme) => ({
+export default withStyles((theme:Theme) => ({
   root: {
     textAlign: "left",
     backgroundColor: theme.palette.primary.dark,

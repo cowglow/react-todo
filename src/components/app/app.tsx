@@ -1,12 +1,11 @@
 import React from "react";
-import withStyles from "./app.style";
-import Button from "@material-ui/core/Button";
+import {Button} from "@mui/material";
 
 import TaskMaker from "../task-maker/task-maker";
 import TaskList from "../task-list/task-list";
-import TaskCount from "../task-count/task-count";
+import TaskCount from "../task-count/task-count.tsx";
 import { useTasks } from "../../context/tasks-context/tasks-context";
-import Header from "../app-header/app-header";
+// import Header from "../app-header/app-header";
 
 interface AppProps {
   classes: any;
@@ -18,11 +17,11 @@ const App: React.FC<AppProps> = ({ classes }) => {
   return (
     <div className={classes.root}>
       {/* HEADER */}
-      <Header />
+      {/*<Header />*/}
 
       {/* MAIN */}
       <main className={classes.main}>
-        <TaskMaker createTask={createTask} />
+        <TaskMaker classes={{}} createTask={createTask} />
         <TaskList todos={tasks} />
       </main>
 
@@ -37,4 +36,4 @@ const App: React.FC<AppProps> = ({ classes }) => {
   );
 };
 
-export default withStyles(App);
+export default App;

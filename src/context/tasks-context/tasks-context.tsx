@@ -45,7 +45,7 @@ export const TasksContextProvider: React.FC<TasksContextProviderProps> = ({
 }) => {
   const [storage, setStorage] = useLocalStorage({
     key: "todos",
-    defaultValue: [],
+    defaultValue: defaultValue ?? [],
   });
 
   const [tasks, setTasks] = React.useReducer(

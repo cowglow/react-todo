@@ -1,19 +1,18 @@
-import withStyles from "@material-ui/core/styles/withStyles";
+import {Theme, withStyles} from "@mui/material";
 
-export default withStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  main: {
-    flex: "1 0 auto",
-  },
-  controls: {
-    // border: 'thin solid green',
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  btnClearCompleted: {
-    // border: 'thin solid green',
-  },
+export default withStyles((theme: Theme) => ({
+    root: {
+        width: "100%",
+    },
+    main: {
+        flex: "1 0 auto",
+    },
+    controls: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    btnClearCompleted: {
+        border: theme.palette.success.main
+    },
 }));

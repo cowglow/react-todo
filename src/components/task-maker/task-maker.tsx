@@ -1,7 +1,6 @@
 import React from "react";
-import withStyles from "./task-maker.style";
 import { getRandomPlaceholderText } from "../../lib/get-random-placeholder-text/get-random-placeholder-text";
-import TextField from "@material-ui/core/TextField";
+import {TextField} from "@mui/material";
 
 interface TaskMakerProps {
   classes: any;
@@ -43,4 +42,4 @@ const TaskMaker: React.FC<TaskMakerProps> = ({ classes, createTask }) => {
   );
 };
 
-export default withStyles(TaskMaker);
+export default TaskMaker;

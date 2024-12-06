@@ -1,9 +1,9 @@
-import withStyles from "@material-ui/core/styles/withStyles";
+import {withStyles} from "@mui/material";
 
-export default withStyles((theme) => ({
-  root: {
-    size: 48,
-    boxSizing: "border-box",
-    padding: 16,
-  },
+export default withStyles(() => ({
+    root: {
+        size: 48,
+        boxSizing: "border-box",
+        padding: 16,
+    },
 }));

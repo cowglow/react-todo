@@ -1,7 +1,6 @@
 import React from "react";
-import withStyles from "./navigation-footer.style";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+import {Link, Typography} from "@mui/material";
+
 
 interface NavigationFooterProps {
   classes: any;
@@ -38,4 +37,4 @@ const NavigationFooter: React.FC<NavigationFooterProps> = ({ classes }) => (
   </div>
 );
 
-export default withStyles(NavigationFooter);
+export default NavigationFooter;

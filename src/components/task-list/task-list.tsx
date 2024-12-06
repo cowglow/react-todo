@@ -1,5 +1,5 @@
 import React from "react";
-import List from "@material-ui/core/List";
+import {List} from "@mui/material";
 import TaskElement from "../task-element/task-element";
 
 interface TaskListProps {
