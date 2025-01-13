@@ -3,9 +3,9 @@ import {Avatar, Chip} from "@mui/material";
 // @ts-ignore
 import styles from "./task-count.module.css";
 
-// @ts-ignore
-const TaskCount = ({ count }) => (
-  <div className={styles.root} aria-label="List count">
+
+const TaskCount = ({ count }:{count:number}) => (
+  <div aria-label="List count">
     {count ? (
       <Chip
         avatar={<Avatar>{count}</Avatar>}
