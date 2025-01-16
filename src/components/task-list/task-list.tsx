@@ -1,26 +1,27 @@
 import React from "react";
-import {List} from "@mui/material";
+import {Box, List} from "@mui/material";
 import TaskElement from "../task-element/task-element";
 
 interface TaskListProps {
-  todos: Task[];
+    todos: Task[];
 }
 
-const TaskList: React.FC<TaskListProps> = ({ todos }) => {
-  return (
-    <List>
-      {todos.map((task, index) => (
-        <div key={task.key}>
-          <TaskElement
-            index={index}
-            taskKey={task.key}
-            label={task.label}
-            isChecked={task.isChecked}
-          />
-        </div>
-      ))}
-    </List>
-  );
+const TaskList: React.FC<TaskListProps> = ({todos}) => {
+    return (
+        <Box maxHeight="100%" overflow={"auto"}>
+            <List disablePadding>
+                {todos.map((task, index) => (
+                    <TaskElement
+                        key={task.key}
+                        index={index}
+                        taskKey={task.key}
+                        label={task.label}
+                        isChecked={task.isChecked}
+                    />
+                ))}
+            </List>
+        </Box>
+    );
 };
 
 export default TaskList;

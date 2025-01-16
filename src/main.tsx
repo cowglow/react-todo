@@ -10,11 +10,7 @@ createRoot(document.getElementById('root')!).render(
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <ContextProviders>
-                <App classes={{
-                    root: "root",
-                    main: 'main',
-                    controls: 'controls',
-                }}/>
+                <App />
             </ContextProviders>
         </ThemeProvider>
     </StrictMode>,

@@ -11,7 +11,7 @@ const App: React.FC = () => {
     const {tasks, completed, createTask, clearCompleted} = useTasks();
 
     return (
-        <Box display="flex" flexDirection="column" height="100dvh" gap={2}>
+        <Box display="flex" flexDirection="column" maxHeight="100dvh" height="100dvh" gap={2}>
             {/* HEADER */}
             <Header>
                 <TaskCount count={completed}/>
