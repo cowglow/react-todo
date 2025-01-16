@@ -1,39 +1,35 @@
 import React from "react";
-import {Button} from "@mui/material";
+import {Box, Button, Paper} from "@mui/material";
 
 import TaskMaker from "../task-maker/task-maker";
 import TaskList from "../task-list/task-list";
 import TaskCount from "../task-count/task-count.tsx";
 import {useTasks} from "../../context/tasks-context/tasks-context";
-// import Header from "../app-header/app-header";
-// @ts-ignore
-import "../../assets/styles.css";
+import Header from "../app-header/app-header";
 
-interface AppProps {
-    classes: any;
-}
-
-const App: React.FC<AppProps> = ({classes}) => {
+const App: React.FC = () => {
     const {tasks, completed, createTask, clearCompleted} = useTasks();
 
     return (
-        <div className={classes.root}>
+        <Box display="flex" flexDirection="column" height="100dvh" gap={2}>
             {/* HEADER */}
+            <Header>
+                <TaskCount count={completed}/>
+            </Header>
 
             {/* MAIN */}
-            <main className={classes.main}>
-                <TaskMaker classes={{}} createTask={createTask}/>
+            <Paper component="main" sx={{flex: 1, mx: 2}}>
+                <TaskMaker createTask={createTask}/>
                 <TaskList todos={tasks}/>
-            </main>
+            </Paper>
 
             {/* Controls */}
-            <div className={classes.controls}>
-                <TaskCount count={completed}/>
+            <Box component="footer" px={2} pb={2}>
                 <Button variant="contained" color="primary" onClick={clearCompleted} fullWidth>
                     Clear completed
                 </Button>
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
 
