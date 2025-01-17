@@ -24,7 +24,7 @@ const AppHeader: React.FC<PropsWithChildren> = ({children}) => {
 
     return (
         <React.Fragment>
-            <AppBar position="static">
+            <AppBar position="absolute">
                 <Toolbar>
                     <label htmlFor="toolbarButton">
                         <IconButton
@@ -35,7 +35,7 @@ const AppHeader: React.FC<PropsWithChildren> = ({children}) => {
                             <MenuIcon/>
                         </IconButton>
                     </label>
-                    <img src={logo} width={48} height={48} alt="logo" />
+                    <img src={logo} width={48} height={48} alt="logo"/>
                     <Typography variant="h6" color="inherit">
                         cowglow/react-todo
                     </Typography>
@@ -51,6 +51,7 @@ const AppHeader: React.FC<PropsWithChildren> = ({children}) => {
                     <AppNavigation onClose={toggleDrawer}/>
                 </SwipeableDrawer>
             </AppBar>
+            <Box sx={{height: 56}}/>
         </React.Fragment>
     );
 };

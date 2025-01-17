@@ -9,7 +9,7 @@ interface TaskListProps {
 const TaskList: React.FC<TaskListProps> = ({todos}) => {
     return (
         <Box maxHeight="100%" overflow={"auto"}>
-            <List disablePadding>
+            <List disablePadding >
                 {todos.map((task, index) => (
                     <TaskElement
                         key={task.key}

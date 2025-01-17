@@ -1,8 +1,5 @@
 import {Avatar, Chip} from "@mui/material";
 
-// @ts-ignore
-import styles from "./task-count.module.css";
-
 
 const TaskCount = ({ count }:{count:number}) => (
   <div aria-label="List count">
