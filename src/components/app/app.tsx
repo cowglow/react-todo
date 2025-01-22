@@ -12,8 +12,7 @@ const RootWrapper = styled(Box)`
     //gap:1;
     display: flex;
     flex-direction: column;
-    max-height: 100dvh;
-    height: 100vh;
+    height: 100dvh;
 `
 
 export default function App() {
