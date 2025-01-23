@@ -1,59 +1,59 @@
-import React, {PropsWithChildren} from "react";
-
+import {PropsWithChildren, useState} from "react";
+import {AppBar, IconButton, SwipeableDrawer, Toolbar, Typography} from "@mui/material";
+import {Menu as MenuIcon} from "@mui/icons-material";
 // @ts-ignore
 import logo from "../../assets/images/logo.svg"
 import AppNavigation from "../app-navigation/app-navigation";
-import {AppBar, Box, IconButton, SwipeableDrawer, Toolbar, Typography} from "@mui/material";
-import {Menu as MenuIcon} from "@mui/icons-material";
+import {Branding, StyledAppBarOffset, StyledAppHeaderContent} from "./app-header.style.ts";
 
-const AppHeader: React.FC<PropsWithChildren> = ({children}) => {
-    const [state, setState] = React.useState<DrawerState>(false);
+export default function AppHeader({children}: PropsWithChildren) {
+    const [state, setState] = useState<DrawerState>(false);
 
     const toggleDrawer = (drawerState: DrawerState) => (
-        event: React.MouseEvent | React.KeyboardEvent
+        event: MouseEvent | KeyboardEvent
     ) => {
         if (
             (event.type === "keydown" &&
-                (event as React.KeyboardEvent).key === "Tab") ||
-            (event as React.KeyboardEvent).key === "Shift"
+                (event as KeyboardEvent).key === "Tab") ||
+            (event as KeyboardEvent).key === "Shift"
         ) {
             return;
         }
         setState(drawerState);
     };
 
-    return (
-        <React.Fragment>
-            <AppBar position="absolute">
-                <Toolbar>
-                    <label htmlFor="toolbarButton">
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open Menu"
-                            onClick={toggleDrawer(!state)}
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                    </label>
-                    <img src={logo} width={48} height={48} alt="logo"/>
-                    <Typography variant="h6" color="inherit">
-                        cowglow/react-todo
-                    </Typography>
-                    <Box display="flex" flex={1} justifyContent="flex-end">
-                        {children}
-                    </Box>
-                </Toolbar>
-                <SwipeableDrawer
-                    open={state}
-                    onClose={toggleDrawer(false)}
-                    onOpen={toggleDrawer(true)}
-                >
-                    <AppNavigation onClose={toggleDrawer}/>
-                </SwipeableDrawer>
-            </AppBar>
-            <Box sx={{height: 56}}/>
-        </React.Fragment>
-    );
-};
-
-export default AppHeader;
+    return [
+        <AppBar key="app-bar" position="absolute">
+            <Toolbar>
+                <label htmlFor="toolbarButton">
+                    {/*//@ts-ignore */}
+                    <IconButton
+                        color="inherit"
+                        aria-label="Open Menu"
+                        onClick={toggleDrawer(!state)}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                </label>
+                <Branding src={logo} alt="react logo"/>
+                <Typography variant="h6" color="inherit" noWrap>
+                    cowglow/react-todo
+                </Typography>
+                <StyledAppHeaderContent>
+                    {children}
+                </StyledAppHeaderContent>
+            </Toolbar>
+            <SwipeableDrawer
+                open={state}
+                //@ts-ignore
+                onClose={toggleDrawer(false)}
+                //@ts-ignore
+                onOpen={toggleDrawer(true)}
+            >
+                {/*//@ts-ignore */}
+                <AppNavigation onClose={toggleDrawer}/>
+            </SwipeableDrawer>
+        </AppBar>,
+        <StyledAppBarOffset key="app-bar-offset"/>
+    ];
+}

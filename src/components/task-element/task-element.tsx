@@ -1,6 +1,5 @@
-import {Checkbox, ListItem, ListItemText} from "@mui/material";
-
 import {useTasks} from "../../context/tasks-context/tasks-context";
+import {Checkbox, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 
 interface TaskElementProps {
     index: number;
@@ -14,7 +13,7 @@ export default function TaskElement({
                                         taskKey,
                                         label,
                                         isChecked,
-                                    }: TaskElementProps){
+                                    }: TaskElementProps) {
     const {updateTask} = useTasks();
 
     const clickHandler = () => {
@@ -27,12 +26,14 @@ export default function TaskElement({
 
     return (
         <ListItem dense component="button" onClick={clickHandler}>
-            <Checkbox
-                id={`task-${index}-checkbox`}
-                checked={isChecked}
-                inputProps={{"aria-label": "Checkbox A"}}
-                size="small"
-            />
+            <ListItemIcon>
+                <Checkbox
+                    id={`task-${index}-checkbox`}
+                    checked={isChecked}
+                    inputProps={{"aria-label": "Checkbox A"}}
+                    size="small"
+                />
+            </ListItemIcon>
             <ListItemText
                 primary={label}
                 style={{

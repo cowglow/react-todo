@@ -1,19 +1,13 @@
-import {Theme, withStyles} from "@mui/material";
+import {Box, styled} from "@mui/material";
 
-export default withStyles((theme:Theme) => ({
-  root: {
-    textAlign: "left",
-    backgroundColor: theme.palette.primary.dark,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  drawer: {
-    width: 250,
-    padding: 8,
-  },
-  icon: {
-    width: 48,
-  },
-}));
+export const Branding = styled("img")`
+    width: ${({theme}) => theme.spacing(6)}
+`
+export const StyledAppHeaderContent = styled(Box)`
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+`
+export const StyledAppBarOffset = styled(Box)`
+    height: ${({theme}) => theme.spacing(8)};
+`
