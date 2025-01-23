@@ -1,12 +1,12 @@
-import React from "react";
-import {Box, List} from "@mui/material";
+import {Box, Divider, List} from "@mui/material";
 import TaskElement from "../task-element/task-element";
 
 interface TaskListProps {
     todos: Task[];
 }
 
-const TaskList: React.FC<TaskListProps> = ({todos}) => {
+export default function TaskList({todos}: TaskListProps) {
+    if (!todos.length) return <Divider/>
     return (
         <Box maxHeight="100%" overflow="hidden">
             <List disablePadding>
@@ -23,5 +23,3 @@ const TaskList: React.FC<TaskListProps> = ({todos}) => {
         </Box>
     );
 };
-
-export default TaskList;

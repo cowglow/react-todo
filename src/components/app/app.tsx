@@ -13,6 +13,10 @@ import TaskMaker from "../task-maker/task-maker";
 export default function App() {
     const {tasks, completed, createTask, clearCompleted, tabIndex, setTabIndex} = useAppHook()
 
+    const tabs = {
+        0: <TaskList todos={tasks}/>,
+        1: <TaskList todos={tasks.filter(task => task.isChecked)}/>
+    }
     return (
         <RootWrapper>
             {/* HEADER */}
@@ -32,12 +36,14 @@ export default function App() {
                     <Tab label="to-do"/>
                     <Tab label="completed"/>
                 </Tabs>
-                <Box role="tabpanel" hidden={tabIndex !== 0}>
-                    <TaskList todos={tasks}/>
-                </Box>
-                <Box role="tabpanel" hidden={tabIndex !== 1}>
-                    <TaskList todos={tasks.filter(task => task.isChecked)}/>
-                </Box>
+                {Object.keys(tabs).map(key => {
+                    return (
+                        <Box role="tabpanel" hidden={tabIndex !== Number(key)}>
+                            {/*// @ts-ignore */}
+                            {tabs[key]}
+                        </Box>
+                    )
+                })}
             </MainWrapper>
             {/* Controls */}
             <FooterWrapper>
