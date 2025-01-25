@@ -18,6 +18,6 @@ const placeholderTextOptions = [
   "What's your next priority?",
   "What will you accomplish next?",
   "What's your next action item?",
-];
+]
 
-export default placeholderTextOptions;
+export default placeholderTextOptions

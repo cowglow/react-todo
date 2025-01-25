@@ -1,14 +1,10 @@
-import React from "react";
-import { TasksContextProvider } from "./tasks-context/tasks-context";
+import { PropsWithChildren } from "react"
+import { TasksContextProvider } from "./tasks-context"
 
-interface ContextProviderProps {
-  children: React.ReactNode;
+export function ContextProviders({ children }: PropsWithChildren) {
+  return (
+    <TasksContextProvider>
+      <>{children}</>
+    </TasksContextProvider>
+  )
 }
-
-export const ContextProviders: React.FC<ContextProviderProps> = ({
-  children,
-}) => (
-  <TasksContextProvider>
-    <>{children}</>
-  </TasksContextProvider>
-);

@@ -1,5 +1,5 @@
-import {createTheme, ThemeOptions} from "@mui/material";
-import {green, purple} from "@mui/material/colors";
+import { createTheme, ThemeOptions } from "@mui/material"
+import { green, purple } from "@mui/material/colors"
 
 const theme: ThemeOptions = {
   palette: {
@@ -14,6 +14,6 @@ const theme: ThemeOptions = {
       dark: green[500],
     },
   },
-};
+}
 
-export default createTheme(theme);
+export default createTheme(theme)

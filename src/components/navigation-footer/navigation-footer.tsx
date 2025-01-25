@@ -1,35 +1,36 @@
-import React from "react";
-import {Box, Link, Typography} from "@mui/material";
+import { Box, Link, Typography } from "@mui/material"
+import { StyledNavigationFooter } from "./navigation-footer.style.ts"
 
-const NavigationFooter: React.FC = () => (
-    <Box px={2}>
-        <Typography variant="subtitle2">
-            Made with <br/>
-            <Link
-                href="https://reactjs.org/tutorial/tutorial.html"
-                target="_blank"
-                aria-label="ReactJS Tutorial Link"
-            >
-                ReactJS
-            </Link>{" "}
-            &amp;{" "}
-            <Link
-                href="http://material-ui.com"
-                target="_blank"
-                aria-label="Material-UI for React"
-            >
-                Material-UI
+export default function NavigationFooter() {
+  const links: Record<string, string>[] = [
+    {
+      href: "https://reactjs.org/tutorial/tutorial.html",
+      ariaLabel: "ReactJS Tutorial Link",
+      label: "ReactJS",
+    },
+    {
+      href: "https://material-ui.com",
+      ariaLabel: "Material-UI for React",
+      label: "MaterialUI",
+    },
+    {
+      href: "https://github.com/cowglow/react-todo",
+      ariaLabel: "View the source code on GitHub",
+      label: "GitHub Repository",
+    },
+  ]
+  return (
+    <StyledNavigationFooter>
+      <Typography variant="subtitle2">
+        Made with <br />
+        <Box display="flex" flexDirection="column">
+          {links.map((link) => (
+            <Link href={link.href} target="_blank" aria-label={link.ariaLabel}>
+              {link.label}
             </Link>
-            <br/>
-            <Link
-                href="https://github.com/cowglow/react-todo"
-                target="_blank"
-                aria-label="View the source code on GitHub"
-            >
-                GitHub Repo.
-            </Link>
-        </Typography>
-    </Box>
-);
-
-export default NavigationFooter;
+          ))}
+        </Box>
+      </Typography>
+    </StyledNavigationFooter>
+  )
+}

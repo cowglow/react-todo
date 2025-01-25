@@ -1,7 +1,6 @@
-import {Avatar, Chip} from "@mui/material";
+import { Avatar, Chip } from "@mui/material"
 
-
-const TaskCount = ({ count }:{count:number}) => (
+const TaskCount = ({ count }: { count: number }) => (
   <div aria-label="List count">
     {count ? (
       <Chip
@@ -10,9 +9,9 @@ const TaskCount = ({ count }:{count:number}) => (
         label="things to do."
       />
     ) : (
-      <Chip label={"Nothing to do"} color="primary" variant="outlined" />
+      <Chip label="Nothing to do" color="primary" variant="outlined" />
     )}
   </div>
-);
+)
 
-export default TaskCount;
+export default TaskCount
